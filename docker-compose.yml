@@ -1,0 +1,36 @@
+services:
+
+
+  build_php:
+    container_name: lxp_build_php
+    build:
+      context: ./
+      dockerfile: _build_php.dockerfile
+    volumes:
+      - ./:/usr/src/app
+
+
+  build_npm:
+    container_name: lxp_build_npm
+    build:
+      context: ./
+      dockerfile: _build_npm.dockerfile
+    volumes:
+      - ./:/usr/src/app
+
+
+  serve_octane:
+    container_name: lxp_serve_octane
+    build:
+      context: ./
+      dockerfile: _serve_octane.dockerfile
+    entrypoint: php artisan octane:frankenphp --workers=4
+    ports:
+      - "8003:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      build_php:
+        condition: service_completed_successfully
+      build_npm:
+        condition: service_completed_successfully
