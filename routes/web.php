@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\InstructorController;
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('/courses', CourseController::class);
+Route::resource('/chapters', ChapterController::class);
 Route::resource('/students', StudentController::class);
 Route::resource('/course-students', CourseStudentController::class);
 Route::resource('/instructors', InstructorController::class);
