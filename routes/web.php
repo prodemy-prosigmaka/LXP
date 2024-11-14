@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\LessonVideoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TopicController;
@@ -28,6 +29,7 @@ Route::resource('/courses', CourseController::class);
 Route::resource('/chapters', ChapterController::class);
 Route::resource('/topics', TopicController::class);
 Route::resource('/lessons', LessonController::class);
+Route::resource('/lesson-videos', LessonVideoController::class);
 
 Route::resource('/students', StudentController::class);
 Route::resource('/course-students', CourseStudentController::class);
