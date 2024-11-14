@@ -8,6 +8,7 @@ use App\Http\Controllers\LessonArticleController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LessonPdfController;
 use App\Http\Controllers\LessonVideoController;
+use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TopicController;
@@ -34,6 +35,7 @@ Route::resource('/lessons', LessonController::class);
 Route::resource('/lesson-videos', LessonVideoController::class);
 Route::resource('/lesson-pdfs', LessonPdfController::class);
 Route::resource('/lesson-articles', LessonArticleController::class);
+Route::resource('/practices', PracticeController::class);
 
 Route::resource('/students', StudentController::class);
 Route::resource('/course-students', CourseStudentController::class);
