@@ -1,8 +1,17 @@
 <?php
 
+use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\LessonArticleController;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\LessonPdfController;
+use App\Http\Controllers\LessonVideoController;
+use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,7 +28,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('/courses', CourseController::class);
+Route::resource('/chapters', ChapterController::class);
+Route::resource('/topics', TopicController::class);
+Route::resource('/lessons', LessonController::class);
+Route::resource('/lesson-videos', LessonVideoController::class);
+Route::resource('/lesson-pdfs', LessonPdfController::class);
+Route::resource('/lesson-articles', LessonArticleController::class);
+Route::resource('/practices', PracticeController::class);
+
 Route::resource('/students', StudentController::class);
+Route::resource('/course-students', CourseStudentController::class);
 Route::resource('/instructors', InstructorController::class);
 
 require __DIR__.'/auth.php';
