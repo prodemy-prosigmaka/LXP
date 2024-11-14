@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,6 +25,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('/courses', CourseController::class);
 Route::resource('/chapters', ChapterController::class);
+Route::resource('/topics', TopicController::class);
 Route::resource('/students', StudentController::class);
 Route::resource('/course-students', CourseStudentController::class);
 Route::resource('/instructors', InstructorController::class);
