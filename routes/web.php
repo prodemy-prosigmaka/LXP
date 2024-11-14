@@ -4,6 +4,7 @@ use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TopicController;
@@ -26,6 +27,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('/courses', CourseController::class);
 Route::resource('/chapters', ChapterController::class);
 Route::resource('/topics', TopicController::class);
+Route::resource('/lessons', LessonController::class);
+
 Route::resource('/students', StudentController::class);
 Route::resource('/course-students', CourseStudentController::class);
 Route::resource('/instructors', InstructorController::class);
