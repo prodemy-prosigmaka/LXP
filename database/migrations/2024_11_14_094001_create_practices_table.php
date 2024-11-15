@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('practices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('topic_id')->constrained();
-            $table->string('title');
             $table->enum('type', ['single_choice', 'code_challenge', 'open_question']);
             $table->timestamps();
         });

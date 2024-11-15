@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
             $table->foreignId('topic_id')->constrained();
-            $table->string('title');
             $table->enum('type', ['video', 'pdf', 'article']);
             $table->timestamps();
         });
