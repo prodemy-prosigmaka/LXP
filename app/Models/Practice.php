@@ -28,7 +28,7 @@ class Practice extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['topic_id', 'title', 'type'];
+    protected $fillable = ['topic_id', 'type'];
 
 
     /**
