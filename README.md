@@ -1,66 +1,84 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Prodemy LXP
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Learning Xperience Platform by Prodemy 🚀
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel
+- Tailwind CSS
+- Daisy UI
+- Inertia JS
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+### Development Guide
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### General Outline
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Create an issue
+- Create an issue branch from `development` branch
+- Write your code
+- Create Pull Request
+- Merge the issue branch with `development`
+- When ready for production, merge `development` with `main` branch
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### Detail Step By Step
 
-## Laravel Sponsors
+1. Create an issue with either `task` or `bug` label
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. From issue detail page, create new branch that will linked to the issue
 
-### Premium Partners
+3. let the default branch name, then click "Create branch"
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+4. Sync your local repository with origin, by using these commands:
 
-## Contributing
+```bash
+# make sure you are on development branch
+git checkout development
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# pull changes on origin
+git pull origin development
 
-## Code of Conduct
+# sync local branches with origin
+git fetch origin --prune
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# checkout to the recently created issue branch
+git checkout [issue_number]-[your_issue_name]
+```
 
-## Security Vulnerabilities
+5. write your code
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. after finishing writing your code, make commit with message that follow the basic on [conventionalcommits.org]([conventionalcommits.org](https://www.conventionalcommits.org/))
 
-## License
+```bash
+git add .
+git commit -m "[type: feat, fix, etc...] : [change description, or just use the issue title]"
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7. before pushing, make sure you are up to date with `development` branch, and fix the conflict if there is any
+
+```bash
+# run this on your issue branch
+git pull origin development
+git push origin [issue_number]-[your_issue_name]
+```
+
+8. visit your branch on github to create a pull request
+
+9. on pull request form, assign your colleague on "reviewer" field
+
+10. as a reviewer, open pull request page to see PR that assigned to you
+
+11. check the PR on your local by using the method described on guide no. 4
+
+12. back to the PR detail page and click "Add your review" button
+
+13. if the PR is rejected the select "Request changes" option, otherwise select "Approved"
+
+14. the author of rejected PR need to send re-review request after fixing their code
+
+15. after PR is reviewed, the issue branch will be merged to `development` branch
+
+16. after successful merge, the issue branch will be deleted, and the issue will be closed automatically
+
