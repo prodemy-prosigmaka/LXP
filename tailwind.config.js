@@ -12,10 +12,34 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Raleway', ...defaultTheme.fontFamily.sans],
             },
         },
     },
 
-    plugins: [forms],
+    daisyui: {
+        themes: [
+            {
+                mytheme: {
+                    // "primary": "#FF9900",
+                    // "primary": "#0064C8",
+                    "primary": "#26CAD3",
+                    "secondary": "#FC4F00",
+                    "accent": "#00B187",
+                    "neutral": "FACD00",
+
+                    "primary-content": "#ffffff",
+                    "secondary-content": "#ffffff",
+                    "--rounded-btn": "1.5rem",
+                    "--border-btn": "0px", 
+                    "--rounded-input": "1.5rem"
+                },
+            },
+        ],
+    },
+
+    plugins: [
+        forms,
+        require('daisyui'),
+    ],
 };
