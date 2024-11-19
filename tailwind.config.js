@@ -30,8 +30,9 @@ export default {
 
                     "primary-content": "#ffffff",
                     "secondary-content": "#ffffff",
-                    "--rounded-btn": "1.5rem",
+                    // "--rounded-btn": "1.5rem",
                     "--border-btn": "0px", 
+                    // "--rounded-input": "1.5rem"
                 },
             },
         ],
