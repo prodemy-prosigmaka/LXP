@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer components {
+@layer components {
     .btn {
         padding: 1rem 2rem; 
     }
@@ -14,4 +14,4 @@
     .btn-lg {
         padding: 1.5rem 2.5rem; 
     }
-} */
+}
