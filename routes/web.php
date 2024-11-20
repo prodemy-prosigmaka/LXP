@@ -15,11 +15,11 @@ use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('public.homepage');
+    return view('public.homepage.index');
 });
 
 Route::get('/dashboard', function () {
-    return view('admin.dashboard');
+    return view('admin.dashboard.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
