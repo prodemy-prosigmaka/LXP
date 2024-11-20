@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Topic;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class TopicController extends Controller
     {
         $topics = Topic::paginate();
 
-        return view('topic.index', compact('topics'))
+        return view('admin.topic.index', compact('topics'))
             ->with('i', ($request->input('page', 1) - 1) * $topics->perPage());
     }
 
@@ -29,7 +30,7 @@ class TopicController extends Controller
     {
         $topic = new Topic();
 
-        return view('topic.create', compact('topic'));
+        return view('admin.topic.create', compact('topic'));
     }
 
     /**
@@ -50,7 +51,7 @@ class TopicController extends Controller
     {
         $topic = Topic::find($id);
 
-        return view('topic.show', compact('topic'));
+        return view('admin.topic.show', compact('topic'));
     }
 
     /**
@@ -60,7 +61,7 @@ class TopicController extends Controller
     {
         $topic = Topic::find($id);
 
-        return view('topic.edit', compact('topic'));
+        return view('admin.topic.edit', compact('topic'));
     }
 
     /**

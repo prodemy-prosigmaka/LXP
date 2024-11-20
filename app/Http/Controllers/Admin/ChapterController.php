@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class ChapterController extends Controller
     {
         $chapters = Chapter::paginate();
 
-        return view('chapter.index', compact('chapters'))
+        return view('admin.chapter.index', compact('chapters'))
             ->with('i', ($request->input('page', 1) - 1) * $chapters->perPage());
     }
 
@@ -29,7 +30,7 @@ class ChapterController extends Controller
     {
         $chapter = new Chapter();
 
-        return view('chapter.create', compact('chapter'));
+        return view('admin.chapter.create', compact('chapter'));
     }
 
     /**
@@ -50,7 +51,7 @@ class ChapterController extends Controller
     {
         $chapter = Chapter::find($id);
 
-        return view('chapter.show', compact('chapter'));
+        return view('admin.chapter.show', compact('chapter'));
     }
 
     /**
@@ -60,7 +61,7 @@ class ChapterController extends Controller
     {
         $chapter = Chapter::find($id);
 
-        return view('chapter.edit', compact('chapter'));
+        return view('admin.chapter.edit', compact('chapter'));
     }
 
     /**

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\LessonVideo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class LessonVideoController extends Controller
     {
         $lessonVideos = LessonVideo::paginate();
 
-        return view('lesson-video.index', compact('lessonVideos'))
+        return view('admin.lesson-video.index', compact('lessonVideos'))
             ->with('i', ($request->input('page', 1) - 1) * $lessonVideos->perPage());
     }
 
@@ -29,7 +30,7 @@ class LessonVideoController extends Controller
     {
         $lessonVideo = new LessonVideo();
 
-        return view('lesson-video.create', compact('lessonVideo'));
+        return view('admin.lesson-video.create', compact('lessonVideo'));
     }
 
     /**
@@ -50,7 +51,7 @@ class LessonVideoController extends Controller
     {
         $lessonVideo = LessonVideo::find($id);
 
-        return view('lesson-video.show', compact('lessonVideo'));
+        return view('admin.lesson-video.show', compact('lessonVideo'));
     }
 
     /**
@@ -60,7 +61,7 @@ class LessonVideoController extends Controller
     {
         $lessonVideo = LessonVideo::find($id);
 
-        return view('lesson-video.edit', compact('lessonVideo'));
+        return view('admin.lesson-video.edit', compact('lessonVideo'));
     }
 
     /**

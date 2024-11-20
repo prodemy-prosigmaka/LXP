@@ -1,10 +1,14 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Lesson Articles') }}
-        </h2>
-    </x-slot>
+@extends('admin._layouts.app')
 
+@section('title', __('Lesson Articles'))
+
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ __('Lesson Articles') }}
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-12">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -27,8 +31,8 @@
                                     <tr>
                                         <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">No</th>
                                         
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Lesson Id</th>
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Content</th>
+                                    <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Lesson Id</th>
+                                    <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Content</th>
 
                                         <th scope="col" class="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"></th>
                                     </tr>
@@ -38,8 +42,8 @@
                                         <tr class="even:bg-gray-50">
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-semibold text-gray-900">{{ ++$i }}</td>
                                             
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $lessonArticle->lesson_id }}</td>
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $lessonArticle->content }}</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $lessonArticle->lesson_id }}</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $lessonArticle->content }}</td>
 
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
                                                 <form action="{{ route('lesson-articles.destroy', $lessonArticle->id) }}" method="POST">
@@ -65,4 +69,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

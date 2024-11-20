@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Practice;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class PracticeController extends Controller
     {
         $practices = Practice::paginate();
 
-        return view('practice.index', compact('practices'))
+        return view('admin.practice.index', compact('practices'))
             ->with('i', ($request->input('page', 1) - 1) * $practices->perPage());
     }
 
@@ -29,7 +30,7 @@ class PracticeController extends Controller
     {
         $practice = new Practice();
 
-        return view('practice.create', compact('practice'));
+        return view('admin.practice.create', compact('practice'));
     }
 
     /**
@@ -50,7 +51,7 @@ class PracticeController extends Controller
     {
         $practice = Practice::find($id);
 
-        return view('practice.show', compact('practice'));
+        return view('admin.practice.show', compact('practice'));
     }
 
     /**
@@ -60,7 +61,7 @@ class PracticeController extends Controller
     {
         $practice = Practice::find($id);
 
-        return view('practice.edit', compact('practice'));
+        return view('admin.practice.edit', compact('practice'));
     }
 
     /**

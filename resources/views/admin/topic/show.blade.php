@@ -1,10 +1,14 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $topic->name ?? __('Show') . " " . __('Topic') }}
-        </h2>
-    </x-slot>
+@extends('admin._layouts.app')
 
+@section('title', $topic->name ?? __('Show') . " " . __('Topic'))
+
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ $topic->name ?? __('Show') . " " . __('Topic') }}
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-12">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -24,7 +28,7 @@
                             <div class="inline-block min-w-full py-2 align-middle">
                                 <div class="mt-6 border-t border-gray-100">
                                     <dl class="divide-y divide-gray-100">
-                                        
+
                                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                     <dt class="text-sm font-medium leading-6 text-gray-900">Chapter Id</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $topic->chapter_id }}</dd>
@@ -51,4 +55,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

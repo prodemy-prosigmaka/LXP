@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\LessonPdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class LessonPdfController extends Controller
     {
         $lessonPdfs = LessonPdf::paginate();
 
-        return view('lesson-pdf.index', compact('lessonPdfs'))
+        return view('admin.lesson-pdf.index', compact('lessonPdfs'))
             ->with('i', ($request->input('page', 1) - 1) * $lessonPdfs->perPage());
     }
 
@@ -29,7 +30,7 @@ class LessonPdfController extends Controller
     {
         $lessonPdf = new LessonPdf();
 
-        return view('lesson-pdf.create', compact('lessonPdf'));
+        return view('admin.lesson-pdf.create', compact('lessonPdf'));
     }
 
     /**
@@ -50,7 +51,7 @@ class LessonPdfController extends Controller
     {
         $lessonPdf = LessonPdf::find($id);
 
-        return view('lesson-pdf.show', compact('lessonPdf'));
+        return view('admin.lesson-pdf.show', compact('lessonPdf'));
     }
 
     /**
@@ -60,7 +61,7 @@ class LessonPdfController extends Controller
     {
         $lessonPdf = LessonPdf::find($id);
 
-        return view('lesson-pdf.edit', compact('lessonPdf'));
+        return view('admin.lesson-pdf.edit', compact('lessonPdf'));
     }
 
     /**
