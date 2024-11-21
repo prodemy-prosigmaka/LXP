@@ -12,11 +12,12 @@ use App\Http\Controllers\Admin\PracticeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TopicController;
+
+use App\Http\Controllers\Public\PublicCourseController;
+
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('public.homepage.index');
-});
+route::get("/", [PublicCourseController::class, 'index'])->name('courselist.index');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard.index');
