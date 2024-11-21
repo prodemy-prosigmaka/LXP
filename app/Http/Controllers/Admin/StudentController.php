@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class StudentController extends Controller
     {
         $students = Student::paginate();
 
-        return view('student.index', compact('students'))
+        return view('admin.student.index', compact('students'))
             ->with('i', ($request->input('page', 1) - 1) * $students->perPage());
     }
 
@@ -29,7 +30,7 @@ class StudentController extends Controller
     {
         $student = new Student();
 
-        return view('student.create', compact('student'));
+        return view('admin.student.create', compact('student'));
     }
 
     /**
@@ -50,7 +51,7 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
-        return view('student.show', compact('student'));
+        return view('admin.student.show', compact('student'));
     }
 
     /**
@@ -60,7 +61,7 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
-        return view('student.edit', compact('student'));
+        return view('admin.student.edit', compact('student'));
     }
 
     /**

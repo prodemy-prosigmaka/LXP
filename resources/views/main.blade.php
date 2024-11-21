@@ -18,8 +18,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @stack('style')
     </head>
     <body class="font-sans antialiased">
         @yield('layout')
+        @stack('script')
     </body>
 </html>

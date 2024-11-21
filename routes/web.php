@@ -1,17 +1,17 @@
 <?php
 
-use App\Http\Controllers\ChapterController;
-use App\Http\Controllers\CourseController;
-use App\Http\Controllers\CourseStudentController;
-use App\Http\Controllers\InstructorController;
-use App\Http\Controllers\LessonArticleController;
-use App\Http\Controllers\LessonController;
-use App\Http\Controllers\LessonPdfController;
-use App\Http\Controllers\LessonVideoController;
-use App\Http\Controllers\PracticeController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TopicController;
+use App\Http\Controllers\Admin\ChapterController;
+use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\CourseStudentController;
+use App\Http\Controllers\Admin\InstructorController;
+use App\Http\Controllers\Admin\LessonArticleController;
+use App\Http\Controllers\Admin\LessonController;
+use App\Http\Controllers\Admin\LessonPdfController;
+use App\Http\Controllers\Admin\LessonVideoController;
+use App\Http\Controllers\Admin\PracticeController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\TopicController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,7 +36,6 @@ Route::resource('/lesson-videos', LessonVideoController::class);
 Route::resource('/lesson-pdfs', LessonPdfController::class);
 Route::resource('/lesson-articles', LessonArticleController::class);
 Route::resource('/practices', PracticeController::class);
-
 Route::resource('/students', StudentController::class);
 Route::resource('/course-students', CourseStudentController::class);
 Route::resource('/instructors', InstructorController::class);

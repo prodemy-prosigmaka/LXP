@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Instructor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class InstructorController extends Controller
     {
         $instructors = Instructor::paginate();
 
-        return view('instructor.index', compact('instructors'))
+        return view('admin.instructor.index', compact('instructors'))
             ->with('i', ($request->input('page', 1) - 1) * $instructors->perPage());
     }
 
@@ -29,7 +30,7 @@ class InstructorController extends Controller
     {
         $instructor = new Instructor();
 
-        return view('instructor.create', compact('instructor'));
+        return view('admin.instructor.create', compact('instructor'));
     }
 
     /**
@@ -50,7 +51,7 @@ class InstructorController extends Controller
     {
         $instructor = Instructor::find($id);
 
-        return view('instructor.show', compact('instructor'));
+        return view('admin.instructor.show', compact('instructor'));
     }
 
     /**
@@ -60,7 +61,7 @@ class InstructorController extends Controller
     {
         $instructor = Instructor::find($id);
 
-        return view('instructor.edit', compact('instructor'));
+        return view('admin.instructor.edit', compact('instructor'));
     }
 
     /**

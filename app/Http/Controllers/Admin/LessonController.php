@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Lesson;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class LessonController extends Controller
     {
         $lessons = Lesson::paginate();
 
-        return view('lesson.index', compact('lessons'))
+        return view('admin.lesson.index', compact('lessons'))
             ->with('i', ($request->input('page', 1) - 1) * $lessons->perPage());
     }
 
@@ -29,7 +30,7 @@ class LessonController extends Controller
     {
         $lesson = new Lesson();
 
-        return view('lesson.create', compact('lesson'));
+        return view('admin.lesson.create', compact('lesson'));
     }
 
     /**
@@ -50,7 +51,7 @@ class LessonController extends Controller
     {
         $lesson = Lesson::find($id);
 
-        return view('lesson.show', compact('lesson'));
+        return view('admin.lesson.show', compact('lesson'));
     }
 
     /**
@@ -60,7 +61,7 @@ class LessonController extends Controller
     {
         $lesson = Lesson::find($id);
 
-        return view('lesson.edit', compact('lesson'));
+        return view('admin.lesson.edit', compact('lesson'));
     }
 
     /**
