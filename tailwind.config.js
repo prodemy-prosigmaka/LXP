@@ -12,7 +12,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Raleway', ...defaultTheme.fontFamily.sans],
+                sans: ['Mulish', ...defaultTheme.fontFamily.sans],
             },
         },
     },
@@ -34,7 +34,7 @@ export default {
                     "secondary-content": "#ffffff",
                     "--rounded-btn": "1.5rem",
                     "--border-btn": "0px", 
-                    "--rounded-input": "1.5rem"
+                    "--rounded-input": "1.5rem",
                 },
             },
             "cupcake"

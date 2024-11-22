@@ -1,4 +1,4 @@
-<header class="navbar flex justify-between bg-base-100 shadow-md px-4 md:px-20">
+<header class="sticky top-0 z-10 navbar flex justify-between bg-base-100 shadow-md px-4 md:px-20">
     <a href="{{ route('courselist.index') }}">
         <img src="{{ asset('assets/logo-prodemy.png') }}" alt="logo" class="w-28">
     </a>

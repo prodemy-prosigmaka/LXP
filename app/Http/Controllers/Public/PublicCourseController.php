@@ -10,6 +10,7 @@ class PublicCourseController extends Controller
 {
     public function index()
     {
-        return view('public.courselistpage.index');
+        $courses = Course::all();
+        return view('public.courselistpage.index', compact('courses'));
     }
 }
