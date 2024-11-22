@@ -37,7 +37,7 @@
         @else
             <div class="menu menu-horizontal px-1 gap-4">
                 <a href="{{ route('login') }}" class="link link-secondary no-underline self-center">Sign In</a>
-                <a href="{{ route('register') }}" class="btn btn-sm btn-primary">Sign Up</a>
+                <a href="{{ route('register') }}" class="btn btn-sm btn-primary font-bold">Sign Up</a>
             </div>
         @endif
 

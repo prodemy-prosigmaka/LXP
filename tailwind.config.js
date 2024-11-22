@@ -26,7 +26,9 @@ export default {
                     "primary": "#26CAD3",
                     "secondary": "#FC4F00",
                     "accent": "#00B187",
-                    "neutral": "FACD00",
+                    "neutral": "#eaeaea",
+                    "neutral-focus": "#e6e6e6", // Hover state for neutral
+                    "base-100": "#ffffff",
 
                     "primary-content": "#ffffff",
                     "secondary-content": "#ffffff",
@@ -35,6 +37,7 @@ export default {
                     "--rounded-input": "1.5rem"
                 },
             },
+            "cupcake"
         ],
     },
 
