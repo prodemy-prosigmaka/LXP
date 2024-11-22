@@ -3,7 +3,22 @@
 @section('title', 'Courses')
 
 @section('content')
-	<main class="m-8 md:m-20">
-		<h1 class="font-bold md:text-3xl">Choose your learning path</h1>
-	</main>
+    <main class="m-8 md:m-20">
+        <h1 class="md:mb-8 font-bold text-xl md:text-3xl">Choose your learning path</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            @foreach ($courses as $course)
+                <a class="card bg-base-100 shadow-xl hover:bg-primary transition duration-300">
+                    <figure class="px-8 pt-8">
+                        <img src="https://images.unsplash.com/photo-1485988412941-77a35537dae4?q=80&w=1796&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="course-image" class="rounded-xl" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title font-bold">{{ $course->title }}</h2>
+                        <p>{{ $course->caption }}</p>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+    </main>
 @endsection
