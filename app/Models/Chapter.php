@@ -37,5 +37,10 @@ class Chapter extends Model
     {
         return $this->belongsTo(\App\Models\Course::class, 'course_id', 'id');
     }
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class, 'chapter_id');
+    }
     
 }

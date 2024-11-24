@@ -38,5 +38,20 @@ class Lesson extends Model
     {
         return $this->belongsTo(\App\Models\Topic::class, 'topic_id', 'id');
     }
+
+    public function video()
+    {
+        return $this->hasOne(LessonVideo::class, 'lesson_id');
+    }
+
+    public function pdf()
+    {
+        return $this->hasOne(LessonPdf::class, 'lesson_id');
+    }
+
+    public function article()
+    {
+        return $this->hasOne(LessonArticle::class, 'lesson_id');
+    }
     
 }

@@ -39,5 +39,10 @@ class Course extends Model
     {
         return $this->belongsTo(\App\Models\Instructor::class, 'instructor_id', 'id');
     }
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class, 'course_id');
+    }
     
 }
