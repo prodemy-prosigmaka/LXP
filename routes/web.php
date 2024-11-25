@@ -12,13 +12,15 @@ use App\Http\Controllers\Admin\PracticeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TopicController;
-
+use App\Http\Controllers\Public\MyLearningController;
 use App\Http\Controllers\Public\PublicCourseController;
 
 use Illuminate\Support\Facades\Route;
 
 route::get("/", [PublicCourseController::class, 'index'])->name('courselist.index');
 route::get("/course/detail/{id}", [PublicCourseController::class, 'show'])->name('courselist.detail');
+
+route::get("/my-learning", [MyLearningController::class, 'index'])->name('mylearning');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard.index');
