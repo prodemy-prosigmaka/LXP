@@ -1,6 +1,20 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<?php
+    $menus = json_decode(json_encode([
+        [
+            'title' => 'Dashboard',
+            'icon' => 'lucide-house',
+            'route' => 'dashboard'
+        ],[
+            'title' => 'Course CMS',
+            'icon' => 'lucide-calendar-fold',
+            'route' => 'courses.index'
+        ]
+    ]));
+?>
+
+<nav x-data="{ open: false }" class="bg-white border-b shadow-md border-gray-200 fixed top-0 w-full z-10">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class=" mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -10,16 +24,10 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden md:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -53,7 +61,7 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
+            <div class="-me-2 flex items-center md:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -65,11 +73,33 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div class="fixed md:hidden bottom-0 left-0 right-0 bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+
+                @foreach( $menus as $menu )
+                    <a
+                        href="{{ route($menu->route) }}"
+                        class="flex flex-col items-center justify-center px-6 hover:bg-gray-100"
+                    >
+                        <x-dynamic-component
+                            :component="$menu->icon"
+                            class="w-5 h-5 {{ request()->routeIs($menu->route) ? 'text-indigo-400' : 'text-gray-500 group-hover:text-indigo-400' }}"
+                        />
+                    </a>
+                @endforeach
+
+            </div>
+        </div>
+    </div>
+
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            @foreach( $menus as $menu )
+                <x-responsive-nav-link :href="route($menu->route)" :active="request()->routeIs($menu->route)">
+                    {{ $menu->title }}
+                </x-responsive-nav-link>
+            @endforeach
         </div>
 
         <!-- Responsive Settings Options -->
@@ -98,3 +128,22 @@
         </div>
     </div>
 </nav>
+
+<aside id="logo-sidebar" class="fixed top-0 mt-16 left-0 z-20 w-56 h-screen pt-2 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+    <div class="h-full pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+       <ul class="space-y-2 font-medium">
+
+            @foreach( $menus as $menu )
+                <li>
+                    <x-side-link
+                        :href="route($menu->route)"
+                        :active="request()->routeIs($menu->route)"
+                        :icon="$menu->icon"
+                    >
+                         {{ $menu->title }}
+                    </x-side-link>
+                </li>
+            @endforeach
+       </ul>
+    </div>
+</aside>
