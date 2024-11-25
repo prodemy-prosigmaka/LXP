@@ -14,7 +14,7 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        $userIds = User::whereBetween('id', [4, 5])->pluck('id')->toArray();
+        $userIds = User::all()->random(2)->pluck('id');
         $occupations = ['Frontend Engineer', 'Software Engineer'];
         $genders = ['Male', 'Female'];
         $addresses = ['823 Oak St', '754 Pine St'];
