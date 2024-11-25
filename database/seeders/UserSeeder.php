@@ -16,6 +16,18 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        /**
+         * Default user
+         */
+        User::create([
+            'name' => 'Dummy PSM',
+            'email' => 'dummy@prosigmaka.com',
+            'password' => Hash::make('dummypsm'),
+        ]);
+
+        /**
+         * Generate 5 random user
+         */
         for ($i = 0; $i < 5; $i++) {
             User::create([
                 'name' => Str::random(10),
