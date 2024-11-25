@@ -39,5 +39,9 @@ class Topic extends Model
     {
         return $this->belongsTo(\App\Models\Chapter::class, 'chapter_id', 'id');
     }
-    
+
+    public function lesson()
+    {
+        return $this->hasOne(Lesson::class, 'topic_id');
+    }
 }

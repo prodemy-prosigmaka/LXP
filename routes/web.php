@@ -18,6 +18,7 @@ use App\Http\Controllers\Public\PublicCourseController;
 use Illuminate\Support\Facades\Route;
 
 route::get("/", [PublicCourseController::class, 'index'])->name('courselist.index');
+route::get("/course/detail/{id}", [PublicCourseController::class, 'show'])->name('courselist.detail');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard.index');
