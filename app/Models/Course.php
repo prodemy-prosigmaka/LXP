@@ -29,7 +29,7 @@ class Course extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['instructor_id', 'title', 'caption', 'description'];
+    protected $fillable = ['instructor_id', 'title', 'caption', 'description', 'image'];
 
 
     /**
