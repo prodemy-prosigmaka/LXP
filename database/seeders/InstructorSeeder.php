@@ -14,7 +14,7 @@ class InstructorSeeder extends Seeder
      */
     public function run(): void
     {
-        $userIds = User::whereBetween('id', [2, 3])->pluck('id')->toArray();
+        $userIds = User::all()->random(2)->pluck('id');
         $occupations = ['Backend Engineer', 'Data Scientist'];
         $genders = ['Male', 'Female'];
         $addresses = ['123 Main St', '456 Baker St'];
