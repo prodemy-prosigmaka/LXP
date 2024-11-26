@@ -2,22 +2,32 @@
 
 @section('title', 'Course CMS')
 
-@section('header', 'Course CMS')
+@section('header')
+    <h2 class="font-semibold text-3xl text-gray-800 leading-tight">
+        Course CMS
+    </h2>
+@endsection
 
 @section('content')
-    <x-admin.page-card
-        title="Courses"
-        caption="A list of all the Courses"
-    >
-        <x-slot:header_action>
+    <div class="p-4 sm:p-8 bg-white shadow rounded-lg">
+        <header class="sm:flex sm:items-center sm:justify-between">
+            <section>
+                <h2 class="text-base font-semibold leading-6 text-gray-900">
+                    Courses
+                </h1>
+                <p class="mt-2 text-sm text-gray-700">
+                    A list of all the Courses
+                </p>
+            </section>
+
             <a
+                type="button"
                 href="{{ route('courses.create') }}"
                 class="btn shadow btn-primary mt-4 md:mt-0 w-full md:w-auto">
                 <x-lucide-file-plus-2 class="w-4 h-4 "/>
                 Add new
             </a>
-        </x-slot>
-
+        </header>
 
         <x-table.parent class="mt-8">
             <x-slot:thead>
@@ -46,6 +56,5 @@
                 {!! $courses->withQueryString()->links() !!}
             </x-slot>
         </x-table.parent>
-
-    </x-admin.page-card>
+    </div>
 @endsection
