@@ -21,6 +21,7 @@ export default {
         themes: [
             {
                 mytheme: {
+                    ...require("daisyui/src/theming/themes")["light"],
                     // "primary": "#FF9900",
                     // "primary": "#0064C8",
                     "primary": "#26CAD3",
@@ -32,12 +33,11 @@ export default {
 
                     "primary-content": "#ffffff",
                     "secondary-content": "#ffffff",
-                    "--rounded-btn": "1.5rem",
+                    "--rounded-btn": "10rem",
                     "--border-btn": "0px", 
-                    "--rounded-input": "1.5rem",
+                    "--rounded-input": "10rem",
                 },
-            },
-            "cupcake"
+            }
         ],
     },
 
