@@ -7,10 +7,25 @@
 @section('content')
     <main class="m-8 md:m-20">
         <section class="p-8 flex flex-col gap-6 bg-primary rounded-xl">
-            <h1 class="font-bold text-xl text-white md:text-4xl">{{ $course->title }}</h1>
+            <div class="flex gap-4 items-center">
+                <h1 class="font-bold text-xl text-white md:text-4xl">{{ $course->title }}</h1>
+                @if ($isEnrolled)
+                    <div class="badge badge-accent">Enrolled</div>
+                @endif
+            </div>
             <p class="text-white">{{ $course->caption }}</p>
             <p class="text-white"><b>Instructor: </b>{{ $course->instructor->user->name }}</p>
-            <button class="btn btn-secondary btn-sm w-40 font-bold">Join the class</button>
+
+            @if ($isEnrolled)
+                <button type="submit" class="btn btn-secondary btn-sm w-40 font-bold">Go to class</button>
+            @else
+                <form method="POST" action="{{ route('mylearning.join') }}">
+                    @csrf
+                    <input type="hidden" name="course_id" value="{{ $course->id }}">
+                    <button type="submit" class="btn btn-secondary btn-sm w-40 font-bold">Join the class</button>
+                </form>
+            @endif
+
         </section>
 
         <section class="mt-4 md:m-8">

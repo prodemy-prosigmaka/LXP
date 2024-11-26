@@ -21,6 +21,7 @@ route::get("/", [PublicCourseController::class, 'index'])->name('courselist.inde
 route::get("/course/detail/{id}", [PublicCourseController::class, 'show'])->name('courselist.detail');
 
 route::get("/my-learning", [MyLearningController::class, 'index'])->name('mylearning');
+route::post("/my-learning/join", [MyLearningController::class, 'joinClass'])->name('mylearning.join')->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard.index');
