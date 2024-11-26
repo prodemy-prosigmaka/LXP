@@ -6,7 +6,7 @@
             'route' => 'dashboard'
         ],[
             'title' => 'Course CMS',
-            'icon' => 'lucide-calendar-fold',
+            'icon' => 'lucide-book-marked',
             'route' => 'courses.index'
         ]
     ]));
@@ -84,7 +84,7 @@
                     >
                         <x-dynamic-component
                             :component="$menu->icon"
-                            class="w-5 h-5 {{ request()->routeIs($menu->route) ? 'text-indigo-400' : 'text-gray-500 group-hover:text-indigo-400' }}"
+                            class="w-5 h-5 {{ request()->routeIs($menu->route) ? 'text-primary' : 'text-gray-500 group-hover:text-primary' }}"
                         />
                     </a>
                 @endforeach
