@@ -27,9 +27,7 @@ class MyLearningController extends Controller
         ]);
         
         $courseId = (int) $validatedData['course_id'];
-
         $userId = Auth::id();
-
         $student = Student::where('user_id', $userId)->first();
 
         if (!$student) {
@@ -37,17 +35,6 @@ class MyLearningController extends Controller
         }
 
         $studentId = $student->id;
-
-        // Check if the student is already enrolled in the course
-        $existingEnrollment = CourseStudent::where('student_id', $studentId)
-            ->where('course_id', $validatedData['course_id'])
-            ->first();
-
-        if ($existingEnrollment) {
-            return response()->json([
-                'message' => 'Student is already enrolled in this course.',
-            ], 409);
-        }
 
         CourseStudent::create([
             'student_id' => $studentId,
