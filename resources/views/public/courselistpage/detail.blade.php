@@ -6,11 +6,11 @@
 
 @section('content')
     <main class="m-8 md:m-20">
-        <section class="p-8 flex flex-col gap-6 bg-primary rounded-xl">
+        <section class="p-8 flex flex-col gap-4 bg-primary rounded-xl">
             <div class="flex gap-4 items-center">
                 <h1 class="font-bold text-xl text-white md:text-4xl">{{ $course->title }}</h1>
                 @if ($isEnrolled)
-                    <div class="badge badge-accent">Enrolled</div>
+                    <div class="badge badge-neutral">Enrolled</div>
                 @endif
             </div>
             <p class="text-white">{{ $course->caption }}</p>
