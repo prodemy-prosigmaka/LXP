@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PublicCourseController extends Controller
@@ -22,6 +24,11 @@ class PublicCourseController extends Controller
             'chapters.topics',
         ])->findOrFail($id);
 
-        return view('public.courselistpage.detail', compact('course'));
+        $userId = Auth::id();
+        $student = Student::where('user_id', $userId)->first();
+
+        $isEnrolled = $student && $student->courses->contains('id', $id);
+
+        return view('public.courselistpage.detail', compact('course', 'isEnrolled'));
     }
 }

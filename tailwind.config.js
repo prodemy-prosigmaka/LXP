@@ -33,6 +33,7 @@ export default {
 
                     "primary-content": "#ffffff",
                     "secondary-content": "#ffffff",
+                    "neutral-content": "#000000",
                     "--rounded-btn": "10rem",
                     "--border-btn": "0px", 
                     "--rounded-input": "10rem",

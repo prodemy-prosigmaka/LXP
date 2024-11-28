@@ -4,7 +4,7 @@
     </a>
     <nav class="flex-none gap-4">
         @if (Auth::check())
-            <a class="self-center link link-secondary no-underline">My Learning</a>
+            <a href="{{ route('mylearning') }}" class="self-center link link-secondary no-underline">My Learning</a>
 
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar p-0">
