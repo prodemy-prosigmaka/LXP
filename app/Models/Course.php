@@ -29,7 +29,7 @@ class Course extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['instructor_id', 'title', 'caption', 'description'];
+    protected $fillable = ['instructor_id', 'title', 'caption', 'description', 'image'];
 
 
     /**
@@ -39,5 +39,14 @@ class Course extends Model
     {
         return $this->belongsTo(\App\Models\Instructor::class, 'instructor_id', 'id');
     }
-    
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class, 'course_id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'course_students', 'course_id', 'student_id');
+    }
 }

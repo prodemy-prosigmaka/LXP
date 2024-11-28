@@ -12,7 +12,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Raleway', ...defaultTheme.fontFamily.sans],
+                sans: ['Mulish', ...defaultTheme.fontFamily.sans],
             },
         },
     },
@@ -21,20 +21,24 @@ export default {
         themes: [
             {
                 mytheme: {
+                    ...require("daisyui/src/theming/themes")["light"],
                     // "primary": "#FF9900",
                     // "primary": "#0064C8",
                     "primary": "#26CAD3",
                     "secondary": "#FC4F00",
                     "accent": "#00B187",
-                    "neutral": "FACD00",
+                    "neutral": "#eaeaea",
+                    "neutral-focus": "#e6e6e6", // Hover state for neutral
+                    "base-100": "#ffffff",
 
                     "primary-content": "#ffffff",
                     "secondary-content": "#ffffff",
-                    "--rounded-btn": "1.5rem",
+                    "neutral-content": "#000000",
+                    "--rounded-btn": "10rem",
                     "--border-btn": "0px", 
-                    "--rounded-input": "1.5rem"
+                    "--rounded-input": "10rem",
                 },
-            },
+            }
         ],
     },
 
