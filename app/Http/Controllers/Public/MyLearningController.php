@@ -13,7 +13,7 @@ use Illuminate\View\View;
 class MyLearningController extends Controller
 {
     public function index(): View
-    {   
+    {
         $userId = Auth::id();
         $student = Student::where('user_id', $userId)->first();
         $mycourses = $student->courses;
@@ -23,18 +23,27 @@ class MyLearningController extends Controller
     public function joinClass(Request $request)
     {
         $validatedData = $request->validate([
-            'course_id' => 'required|integer|exists:courses,id' 
+            'course_id' => 'required|integer|exists:courses,id'
         ]);
-        
+
         $courseId = (int) $validatedData['course_id'];
         $userId = Auth::id();
         $student = Student::where('user_id', $userId)->first();
 
         if (!$student) {
-            return redirect()->back()->with('error', 'Student not found');
+            return Redirect::back()->withErrors(['errorStudentNotFound' => 'Student Not Found']);
         }
 
         $studentId = $student->id;
+
+        // Check if the student is already enrolled in the course
+        $existingEnrollment = CourseStudent::where('student_id', $studentId)
+            ->where('course_id', $validatedData['course_id'])
+            ->first();
+
+        if ($existingEnrollment) {
+            return Redirect::back()->withErrors(['errorEnrollment' => 'You have already enrolled in this class']);
+        }
 
         CourseStudent::create([
             'student_id' => $studentId,
