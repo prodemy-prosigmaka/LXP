@@ -8,7 +8,7 @@ use App\Http\Controllers\Public\PublicCourseController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
-
+use App\Http\Controllers\Public\InertiaExampleController;
 // lib
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +22,7 @@ route::get("/course/detail/{id}", [PublicCourseController::class, 'show'])->name
 route::get("/my-learning", [MyLearningController::class, 'index'])->name('mylearning');
 route::post("/my-learning/join", [MyLearningController::class, 'joinClass'])->name('mylearning.join')->middleware('auth');
 
+Route::get('/inertia-example', [InertiaExampleController::class, 'index'])->name('inertia-example');
 
 /**
  * Admin Routes
