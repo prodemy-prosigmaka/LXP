@@ -10,6 +10,6 @@ class InertiaExampleController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Example');
+        return Inertia::render('public/inertia-example/index');
     }
 }
