@@ -9,11 +9,10 @@
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar p-0">
                     <div class="w-10 rounded-full">
-                        <img alt="icon"
-                            src="{{ asset('assets/avatar.svg') }}">
+                        <img alt="icon" src="{{ asset('assets/avatar.svg') }}">
                     </div>
                 </div>
-                
+
                 <ul tabindex="0"
                     class="menu menu-md dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-secondary">
                     <li>
@@ -24,14 +23,10 @@
 
                     <li><a>Settings</a></li>
 
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit">
-                                Log out
-                            </button>
-                        </form>
-                    </li>
+                    <x-form-button :action="route('logout')"
+                        class="btn btn-sm w-full justify-start px-4 bg-transparent text-secondary font-normal">
+                        Logout
+                    </x-form-button>
                 </ul>
             </div>
         @else
