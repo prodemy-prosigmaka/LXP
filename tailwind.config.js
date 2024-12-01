@@ -26,7 +26,7 @@ export default {
                     // "primary": "#0064C8",
                     "primary": "#26CAD3",
                     "secondary": "#FC4F00",
-                    "accent": "#00B187",
+                    "accent": "#C7EFF1",
                     "neutral": "#eaeaea",
                     "neutral-focus": "#e6e6e6", // Hover state for neutral
                     "base-100": "#ffffff",
