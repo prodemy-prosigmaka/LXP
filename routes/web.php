@@ -25,8 +25,6 @@ route::post("/my-learning/join", [MyLearningController::class, 'joinClass'])->na
 
 route::get("/learning/{id}", [LearningController::class, 'show'])->name('learning');
 
-
-
 Route::get('/inertia-example', [InertiaExampleController::class, 'index'])->name('inertia-example');
 
 /**

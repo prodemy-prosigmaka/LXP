@@ -1,4 +1,4 @@
-<ul class="menu gap-4 w-2/6">
+<ul class="menu gap-4 w-full lg:w-2/6 p-0">
     @foreach ($courses->chapters as $chapter)
         <li class="bg-accent rounded-box">
             <details>

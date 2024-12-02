@@ -17,4 +17,9 @@ class LearningController extends Controller
 
         return view('public.learningpage.index', compact('courses'));
     }
+
+    public function showVideo(): View
+    {
+        return view('public.learningpage.video');
+    }
 }
