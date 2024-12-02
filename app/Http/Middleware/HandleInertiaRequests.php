@@ -8,13 +8,20 @@ use Inertia\Middleware;
 class HandleInertiaRequests extends Middleware
 {
     /**
-     * The root template that's loaded on the first page visit.
+     * Sets the root template that's loaded on the first page visit.
      *
      * @see https://inertiajs.com/server-side-setup#root-template
      *
-     * @var string
+     * @return string
      */
-    protected $rootView = 'main-inertia';
+    public function rootView(Request $request)
+    {
+        if ($request->routeIs('admin.*')) {
+            return 'admin._layouts.inertia';
+        } else {
+            return 'public._layouts.inertia';
+        }
+    }
 
     /**
      * Determines the current asset version.
@@ -36,7 +43,11 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            //
+            'flash' => [
+                'warning'   => fn () => $request->session()->get('warning'),
+                'success'   => fn () => $request->session()->get('success'),
+                'error'     => fn () => $request->session()->get('error'),
+            ],
         ]);
     }
 }

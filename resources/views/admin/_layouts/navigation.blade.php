@@ -3,11 +3,13 @@
         [
             'title' => 'Dashboard',
             'icon' => 'lucide-house',
-            'route' => 'admin.dashboard'
+            'route' => 'admin.dashboard',
+            'match' => 'admin.dashboard',
         ],[
             'title' => 'Course CMS',
             'icon' => 'lucide-book-marked',
-            'route' => 'admin.courses.index'
+            'route' => 'admin.courses.index',
+            'match' => 'admin.courses.*',
         ]
     ]));
 ?>
@@ -86,7 +88,7 @@
                     >
                         <x-dynamic-component
                             :component="$menu->icon"
-                            class="w-5 h-5 {{ request()->routeIs($menu->route) ? 'text-primary' : 'text-gray-500 group-hover:text-primary' }}"
+                            class="w-5 h-5 {{ request()->routeIs($menu->match) ? 'text-primary' : 'text-gray-500 group-hover:text-primary' }}"
                         />
                     </a>
                 @endforeach
@@ -98,7 +100,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @foreach( $menus as $menu )
-                <x-responsive-nav-link :href="route($menu->route)" :active="request()->routeIs($menu->route)">
+                <x-responsive-nav-link :href="route($menu->route)" :active="request()->routeIs($menu->match)">
                     {{ $menu->title }}
                 </x-responsive-nav-link>
             @endforeach
@@ -139,7 +141,7 @@
                 <li>
                     <x-side-link
                         :href="route($menu->route)"
-                        :active="request()->routeIs($menu->route)"
+                        :active="request()->routeIs($menu->match)"
                         :icon="$menu->icon"
                     >
                          {{ $menu->title }}
