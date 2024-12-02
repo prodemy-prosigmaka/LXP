@@ -24,6 +24,7 @@ class CourseRequest extends FormRequest
         return [
 			'instructor_id' => 'required',
 			'title' => 'required|string',
+            'image' => 'required|string|url',
 			'caption' => 'required|string',
 			'description' => 'required|string',
         ];

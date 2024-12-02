@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Public\InertiaExampleController;
+
 // lib
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,8 @@ Route::middleware('auth')
     ->group(function ()
     {
         Route::get('/dasboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+
+        Route::resource('courses', CourseController::class)->except('edit');
     }
 );
 

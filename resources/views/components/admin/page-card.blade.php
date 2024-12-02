@@ -3,7 +3,7 @@
     'caption'
 ])
 
-<div {{ $attributes->class(['p-4 sm:p-8 bg-white shadow rounded-lg']) }}>
+<div {{ $attributes->class(['p-4 sm:p-8 bg-white shadow rounded-3xl']) }}>
     <header class="sm:flex sm:items-center sm:justify-between">
         <section>
             <h2 class="text-base font-semibold leading-6 text-gray-900">
