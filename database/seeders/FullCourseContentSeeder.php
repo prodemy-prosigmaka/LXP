@@ -36,34 +36,30 @@ class FullCourseContentSeeder extends Seeder
                         'type' => 'lesson'
                     ]);
 
-                    for ($k = 1; $k <= 2; $k++) {
-                        $lessonTypes = ['pdf', 'video'];
+                    // for ($k = 1; $k <= 2; $k++) {
+                    $lessonTypes = ['pdf', 'video'];
 
-                        $lessonType = $lessonTypes[array_rand($lessonTypes)];
+                    $lessonType = $lessonTypes[array_rand($lessonTypes)];
 
-                        $lesson = Lesson::create([
-                            'topic_id' => $topic->id,
-                            'type' => $lessonType,
+                    $lesson = Lesson::create([
+                        'topic_id' => $topic->id,
+                        'type' => $lessonType,
+                    ]);
+
+                    if ($lessonType ===  'video') {
+                        LessonVideo::create([
+                            'lesson_id' => $lesson->id,
+                            'video_url' => 'https://www.youtube.com/embed/_zI4bT14Sl4?si=s872f8NoU_7xmL2b',
                         ]);
-
-                        if ($lessonType ===  'video') {
-                            LessonVideo::create([
-                                'lesson_id' => $lesson->id,
-                                'video_url' => 'https://youtu.be/446E-r0rXHI?si=-ZcVd-OKuwi9Rj3f',
-                            ]);
-                        } elseif ($lessonType === 'pdf') {
-                            LessonPdf::create([
-                                'lesson_id' => $lesson->id,
-                                'pdf_url' => 'https://pdfobject.com/pdf/sample.pdf',
-                            ]);
-                        }
+                    } elseif ($lessonType === 'pdf') {
+                        LessonPdf::create([
+                            'lesson_id' => $lesson->id,
+                            'pdf_url' => 'https://pdfobject.com/pdf/sample.pdf',
+                        ]);
                     }
+                    // }
                 }
             }
         }
-
-        
-
-
     }
 }
