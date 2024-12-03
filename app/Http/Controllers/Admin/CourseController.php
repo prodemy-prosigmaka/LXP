@@ -61,7 +61,15 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
-        $course = Course::create($request->validated());
+        $validated = $request->validate([
+            'instructor_id' => 'required',
+            'title' => 'required|string',
+            'image' => 'required|string|url',
+            'caption' => 'required|string',
+            'description' => 'required|string',
+        ]);
+
+        $course = Course::create($validated);
 
         return to_route('admin.courses.show', $course->id)
             ->with("success", "Course created successfully!");

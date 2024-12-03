@@ -4,16 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseRequest extends FormRequest
+class ExampleRequest extends FormRequest
 {
-    protected $errorBag = "course";
-
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,11 +22,7 @@ class CourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'instructor_id' => 'required',
-			'title' => 'required|string',
-            'image' => 'required|string|url',
-			'caption' => 'required|string',
-			'description' => 'required|string',
+            //
         ];
     }
 }

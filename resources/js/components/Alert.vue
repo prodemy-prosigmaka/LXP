@@ -34,7 +34,7 @@
 	<div
 		v-show="is_show"
 		role="alert"
-		class="alert border-0 shadow mb-4"
+		class="alert border-0 rounded-3xl shadow mb-4"
 		:class="color_mapping[type]"
 	>
 		<component
