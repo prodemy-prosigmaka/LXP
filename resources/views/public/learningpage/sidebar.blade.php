@@ -1,5 +1,5 @@
 <ul class="menu gap-4 w-full lg:w-2/6 p-0">
-    @foreach ($courses->chapters as $chapter)
+    @foreach ($course->chapters as $chapter)
         <li class="bg-accent rounded-box">
             <details>
                 <summary class="p-6 hover:bg-inherit no-bg-on-click">
@@ -7,12 +7,13 @@
                 </summary>
                 <ul class="flex flex-col gap-2 mb-6">
                     @foreach ($chapter->topics as $topic)
-                    <li class="mr-6 ms-0 bg-white rounded-full hover:bg-primary">
-                        <a>
-                            <span class="truncate"><b>Video:</b> {{ $topic->title }}</span>
-                            <x-lucide-circle-play class="w-4 h-4 ml-auto" />
-                        </a>
-                    </li>
+                        <li class="mr-6 ms-0 bg-white rounded-full hover:bg-primary">
+                            <a
+                                href="{{ route('learning.show.video', ['courseId' => $course->id, 'topicId' => $topic->id]) }}">
+                                <span class="truncate"><b>Video:</b> {{ $topic->title }}</span>
+                                <x-lucide-circle-play class="w-4 h-4 ml-auto" />
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
             </details>
