@@ -7,5 +7,6 @@
         @include('public.learningpage.sidebar')
 
         @include('public.learningpage.video')
+        @include('public.learningpage.pdf')
     </div>
 @endsection

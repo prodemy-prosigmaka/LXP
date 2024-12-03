@@ -13,7 +13,7 @@ use Illuminate\View\View;
 
 class LearningController extends Controller
 {
-    public function show($id)
+    public function index($id)
     {
         $course = Course::with(
             'chapters.topics.lesson'
@@ -41,6 +41,20 @@ class LearningController extends Controller
         $lesson = Lesson::with('video')
             ->where('topic_id', $topicId)
             ->where('type', 'video')
+            ->firstOrFail();
+
+        return view('public.learningpage.index', compact('course', 'lesson'));
+    }
+
+    public function showPdf($courseId, $topicId): View
+    {
+        $course = Course::with(
+            'chapters.topics'
+        )->findOrFail($courseId);
+
+        $lesson = Lesson::with('pdf')
+            ->where('topic_id', $topicId)
+            ->where('type', 'pdf')
             ->firstOrFail();
 
         return view('public.learningpage.index', compact('course', 'lesson'));

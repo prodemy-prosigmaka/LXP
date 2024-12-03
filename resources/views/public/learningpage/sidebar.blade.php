@@ -9,9 +9,14 @@
                     @foreach ($chapter->topics as $topic)
                         <li class="mr-6 ms-0 bg-white rounded-full hover:bg-primary">
                             <a
-                                href="{{ route('learning.show.video', ['courseId' => $course->id, 'topicId' => $topic->id]) }}">
-                                <span class="truncate"><b>Video:</b> {{ $topic->title }}</span>
-                                <x-lucide-circle-play class="w-4 h-4 ml-auto" />
+                                href="{{ route('learning.show.' . $topic->lesson->type, ['courseId' => $course->id, 'topicId' => $topic->id]) }}">
+                                <span class="truncate"><b class="capitalize">{{ $topic->lesson->type }}:</b>
+                                    {{ $topic->title }}</span>
+                                @if ($topic->lesson->type == 'video')
+                                    <x-lucide-circle-play class="w-4 h-4 ml-auto" />
+                                @else
+                                    <x-lucide-book-open class="w-4 h-4 ml-auto" />
+                                @endif
                             </a>
                         </li>
                     @endforeach
