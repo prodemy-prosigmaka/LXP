@@ -24,9 +24,8 @@ route::get("/course/detail/{id}", [PublicCourseController::class, 'show'])->name
 route::get("/my-learning", [MyLearningController::class, 'index'])->name('mylearning');
 route::post("/my-learning/join", [MyLearningController::class, 'joinClass'])->name('mylearning.join')->middleware('auth');
 
-route::get("/learning/{id}", [LearningController::class, 'show'])->name('learning');
-
-
+route::get("/learning/{courseId}", [LearningController::class, 'show'])->name('learning');
+route::get("/learning/{courseId}/video/{topicId}", [LearningController::class, 'showVideo'])->name('learning.show.video');
 
 Route::get('/inertia-example', [InertiaExampleController::class, 'index'])->name('inertia-example');
 
