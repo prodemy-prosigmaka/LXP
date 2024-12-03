@@ -7,6 +7,8 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './resources/views/**/*.vue',
+        './resources/js/**/*.vue',
     ],
 
     theme: {
@@ -34,9 +36,9 @@ export default {
                     "primary-content": "#ffffff",
                     "secondary-content": "#ffffff",
                     "neutral-content": "#000000",
-                    "--rounded-btn": "10rem",
+                    "--rounded-btn": "2rem",
                     "--border-btn": "0px", 
-                    "--rounded-input": "10rem",
+                    "--rounded-input": "2rem",
                 },
             }
         ],
