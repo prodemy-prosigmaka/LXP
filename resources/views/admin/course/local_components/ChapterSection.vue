@@ -1,8 +1,9 @@
 <script setup>
-	import { computed, ref } from 'vue';
+	import { ref, reactive } from 'vue';
 	import { PlusIcon, SquarePenIcon, Trash2Icon, ArrowRight, XIcon, CheckIcon } from 'lucide-vue-next';
 	import { Alert, FormInput } from '@/components';
 	import { useForm, router, Link } from '@inertiajs/vue3';
+	import Draggable from 'vuedraggable'
 
 	const props = defineProps({
 		flash 			: Object,
@@ -13,6 +14,9 @@
 	const is_creating 		= ref(false)
 	const is_editing 		= ref(false)
 	const is_deleting_id 	= ref(0)
+
+	const chapters_drag 	= reactive(props.is_course_exist ? [...props.course.chapters] : [])
+	const drag 				= ref(false)
 
 	const chapter_form 	= useForm({
 		id 			: '',
@@ -94,7 +98,7 @@
 			:message="flash.success"
 			type="success"/>
 
-		<template v-for="chapter in course.chapters">
+		<template v-for="(chapter, chapter_index) in course.chapters">
 			<div class="bg-white p-8 rounded-3xl shadow w-full grid gap-4">
 				<form
 					@submit.prevent="submit_chapter"
@@ -150,7 +154,32 @@
 					</div>
 				</form>
 
-				<template v-for="topic in chapter.topics">
+				<Draggable
+					v-model="chapters_drag[chapter_index].topics"
+					item-key="id"
+					@start="drag=true"
+					@end="drag=false"
+					class="flex flex-col gap-4"
+					:component-data="{
+						type: 'transition-group',
+						name: 'flip-list'
+					}"
+					:animation="200"
+			        ghost-class="opacity-50"
+				>
+					<template #item="{element}">
+						<Link
+							:href="$route('admin.topics.show', element.id)"
+							preserve-scroll
+							class="bg-gray-100 p-4 rounded-2xl text-sm cursor-grab flex items-center">
+							<span class="cursor-pointer">{{ element.title }}</span>
+							<div class="flex-grow"></div>
+							<ArrowRight class="w-4 h-4 cursor-pointer" />
+						</Link>
+					</template>
+				</Draggable>
+
+				<!-- <template v-for="topic in chapters_drag[chapter_index].topics">
 					<Link
 						:href="$route('admin.topics.show', chapter.id)"
 						preserve-scroll
@@ -159,7 +188,7 @@
 						<div class="flex-grow"></div>
 						<ArrowRight class="w-4 h-4" />
 					</Link>
-				</template>
+				</template> -->
 			</div>
 		</template>
 
@@ -210,3 +239,13 @@
 		</button>
 	</section>
 </template>
+
+<style>
+	.flip-list-move {
+	  transition: transform 0.5s;
+	}
+
+	.no-move {
+	  transition: transform 0s;
+	}
+</style>

@@ -2,8 +2,11 @@
 	import { Transition, ref, onMounted } from 'vue';
 	import { router, useForm } from '@inertiajs/vue3'
 	import { ChevronLeftIcon, CheckIcon } from 'lucide-vue-next';
+	import { QuillEditor } from '@vueup/vue-quill'
+	import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 	import { FormInput, FormTextarea } from '@/components';
+
 
 	const props = defineProps({
 		course_id 			: [Number, null],
@@ -110,7 +113,7 @@
 			leave-to-class="translate-x-24 opacity-0"
 		>
 			<div v-show="is_show" class="absolute bg-white rounded-l-3xl top-0 bottom-0 right-0 w-2/3 h-screen shadow-xl p-8 overflow-scroll">
-				<header class="flex items-center justify-between mb-8">
+				<header class="flex items-center justify-between">
 					<h2 class="text-2xl font-semibold">
 						Topic Form
 					</h2>
@@ -122,6 +125,8 @@
 						Back
 					</button>
 				</header>
+
+				<div class="divider"></div>
 
 				<form
 					@submit.prevent="submit"
@@ -210,27 +215,54 @@
 						</div>
 					</section>
 
-					<FormInput
-						v-if="topic_form.lesson?.type == 'video'"
-						v-model="topic_form.lesson.video.video_url"
-						label="Video URL"
-					/>
-					<FormInput
-						v-if="topic_form.lesson?.type == 'pdf'"
-						v-model="topic_form.lesson.pdf.pdf_url"
-						label="Pdf URL"
-					/>
-					<FormTextarea
+					<section v-if="topic_form.lesson?.type == 'video'">
+						<FormInput
+							v-model="topic_form.lesson.video.video_url"
+							label="Video URL"
+						/>
+						<iframe
+							v-if="topic_form.lesson.video.video_url"
+							:src="topic_form.lesson.video.video_url"
+							class="aspect-video w-full rounded-box mt-6"
+						    title="YouTube video player" frameborder="0"
+						    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+						</iframe>
+					</section>
+
+					<section v-if="topic_form.lesson?.type == 'pdf'">
+						<FormInput
+							v-model="topic_form.lesson.pdf.pdf_url"
+							label="Pdf URL"
+						/>
+
+						<object
+							v-if="topic_form.lesson.pdf.pdf_url"
+							:data="topic_form.lesson.pdf.pdf_url"
+							class="pdf rounded-box w-full h-[300px] mt-6">
+						</object>
+					</section>
+
+
+					<label
 						v-if="topic_form.lesson?.type == 'article'"
-						v-model="topic_form.lesson.article.content"
-						label="Article Content"
-						rows="5"
-					/>
+						class="form-control">
+						<div class="label">
+							<span class="label-text">Article Content:</span>
+						</div>
+
+						<QuillEditor
+							theme="snow"
+							content-type="html"
+							v-model:content="topic_form.lesson.article.content" />
+					</label>
+
+					<div class="divider mb-0 mt-2 h-0"></div>
 
 					<section class="flex justify-end">
 						<button
 							type="submit"
-							class="btn btn-md btn-primary">
+							class="btn btn-md btn-primary shadow">
 							<CheckIcon class="w-4 h-4" />
 							Submit
 						</button>
@@ -240,3 +272,12 @@
 		</Transition>
 	</section>
 </template>
+
+<style>
+	.ql-toolbar.ql-snow {
+		@apply rounded-t-2xl;
+	}
+	.ql-container.ql-snow {
+		@apply rounded-b-2xl;
+	}
+</style>
