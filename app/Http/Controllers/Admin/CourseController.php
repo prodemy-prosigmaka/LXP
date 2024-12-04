@@ -42,8 +42,10 @@ class CourseController extends Controller
     /**
      * Show the interactive cms for creating or editing a course.
      */
-    public function show(Course $course)
+    public function show($id)
     {
+        $course = Course::with('chapters.topics')->findOrFail($id);
+
         $instructor_options = Instructor::with('user')->get()->map(fn ($opt) => [
             'value' => $opt->id,
             'label' => $opt->user->name,
@@ -61,10 +63,18 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
-        $course = Course::create($request->validated());
+        $validated = $request->validate([
+            'instructor_id' => 'required',
+            'title' => 'required|string',
+            'image' => 'required|string|url',
+            'caption' => 'required|string',
+            'description' => 'required|string',
+        ]);
 
-        return to_route('admin.courses.show', $course->id)
-            ->with("success", "Course created successfully!");
+        $course = Course::create($validated);
+
+        return Redirect::route('admin.courses.show', $course->id)
+            ->with("success", "Course created successfully! Try to add new chapter for your course! 👇");
     }
 
     /**
@@ -74,7 +84,7 @@ class CourseController extends Controller
     {
         $course->update($request->validated());
 
-        return to_route('admin.courses.show', $course->id)
+        return Redirect::route('admin.courses.show', $course->id)
             ->with("success", "Course updated successfully!");
     }
 
@@ -83,6 +93,13 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
+        $course_children_count = $course->chapters()->count();
+
+        if ($course_children_count > 0) {
+            return Redirect::back()
+                ->withErrors([ 'course_delete' => "Can't delete course that still has chapters!" ]);
+        }
+
         $course->delete();
 
         return Inertia::location(route('admin.courses.index'));
