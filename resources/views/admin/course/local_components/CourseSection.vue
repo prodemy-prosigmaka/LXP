@@ -76,7 +76,7 @@
 			/>
 
 			<FormSelect
-				label="Course Title"
+				label="Instructor"
 				v-model="form.instructor_id"
 				:error="errors.course?.instructor_id"
 				:options="instructor_options"
