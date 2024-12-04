@@ -34,7 +34,7 @@ class CourseController extends Controller
             'label' => $opt->user->name,
         ]);
 
-        return Inertia::render('admin/course/InteractiveCMS', [
+        return Inertia::render('admin/course/CourseForm', [
             'instructor_options' => $instructor_options
         ]);
     }
@@ -51,7 +51,7 @@ class CourseController extends Controller
             'label' => $opt->user->name,
         ]);
 
-        return Inertia::render('admin/course/InteractiveCMS', [
+        return Inertia::render('admin/course/CourseForm', [
             'instructor_options' => $instructor_options,
             'course_id'         => $course->id,
             'course'            => $course
