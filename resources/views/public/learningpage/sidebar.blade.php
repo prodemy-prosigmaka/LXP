@@ -1,4 +1,4 @@
-<ul class="menu gap-4 w-full lg:w-2/6 p-0">
+<ul class="sticky top-28 menu gap-4 p-0">
     @foreach ($course->chapters as $chapter)
         <li class="bg-accent rounded-box">
             <details>
@@ -14,6 +14,8 @@
                                     {{ $topic->title }}</span>
                                 @if ($topic->lesson->type == 'video')
                                     <x-lucide-circle-play class="w-4 h-4 ml-auto" />
+                                @elseif ($topic->lesson->type == 'pdf')
+                                    <x-lucide-file-text class="w-4 h-4 ml-auto" />
                                 @else
                                     <x-lucide-book-open class="w-4 h-4 ml-auto" />
                                 @endif
