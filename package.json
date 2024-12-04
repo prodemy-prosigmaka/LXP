@@ -21,6 +21,7 @@
     "dependencies": {
         "@inertiajs/vue3": "^1.2.0",
         "@vitejs/plugin-vue": "^5.2.1",
-        "lucide-vue-next": "^0.462.0"
+        "lucide-vue-next": "^0.462.0",
+        "vuedraggable": "^4.1.0"
     }
 }

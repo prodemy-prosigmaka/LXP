@@ -2,7 +2,7 @@
 	import { computed, ref } from 'vue';
 	import { PlusIcon, SquarePenIcon, Trash2Icon, ArrowRight, XIcon, CheckIcon } from 'lucide-vue-next';
 	import { Alert, FormInput } from '@/components';
-	import { useForm, router } from '@inertiajs/vue3';
+	import { useForm, router, Link } from '@inertiajs/vue3';
 
 	const props = defineProps({
 		flash 			: Object,
@@ -151,11 +151,14 @@
 				</form>
 
 				<template v-for="topic in chapter.topics">
-					<section class="bg-gray-100 p-4 rounded-2xl text-sm cursor-grab transition hover:scale-[102%] flex items-center">
+					<Link
+						:href="$route('admin.topics.show', chapter.id)"
+						preserve-scroll
+						class="bg-gray-100 p-4 rounded-2xl text-sm cursor-grab transition hover:scale-[102%] flex items-center">
 						{{ topic.title }}
 						<div class="flex-grow"></div>
 						<ArrowRight class="w-4 h-4" />
-					</section>
+					</Link>
 				</template>
 			</div>
 		</template>

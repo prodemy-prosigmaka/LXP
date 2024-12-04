@@ -10,6 +10,7 @@ use App\Http\Controllers\Public\PublicCourseController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\TopicController;
 use App\Http\Controllers\Public\InertiaExampleController;
 use App\Http\Controllers\Public\LearningController;
 
@@ -45,6 +46,7 @@ Route::middleware('auth')
 
         Route::resource('courses', CourseController::class)->except('edit');
         Route::resource('chapters', ChapterController::class)->only('store', 'update', 'destroy');
+        Route::resource('topics', TopicController::class)->only('show');
     }
 );
 
