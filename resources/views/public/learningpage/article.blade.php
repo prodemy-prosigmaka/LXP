@@ -1,3 +1,3 @@
-<article class="prose lg:prose-xl">
+<article class="prose">
     {!! $lesson->article->content !!}
 </article>
