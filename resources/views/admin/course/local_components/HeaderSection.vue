@@ -26,5 +26,6 @@
 		v-if="flash.success && !flash.success?.includes('created')"
 		:message="flash.success"
 		type="success"
+		class="mb-4"
 	/>
 </template>

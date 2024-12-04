@@ -1,6 +1,8 @@
 <?php
 
 // public
+
+use App\Http\Controllers\Admin\ChapterController;
 use App\Http\Controllers\Public\MyLearningController;
 use App\Http\Controllers\Public\PublicCourseController;
 
@@ -41,6 +43,7 @@ Route::middleware('auth')
         Route::get('/dasboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::resource('courses', CourseController::class)->except('edit');
+        Route::resource('chapters', ChapterController::class)->only('store', 'update', 'destroy');
     }
 );
 

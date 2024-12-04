@@ -33,6 +33,7 @@
 		flash 				: props.flash,
 		is_course_exist 	: is_course_exist,
 		course_id 			: props.course_id,
+		course 				: props.course,
 	}
 
 </script>

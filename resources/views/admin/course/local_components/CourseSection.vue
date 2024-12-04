@@ -53,7 +53,8 @@
 
 		form.processing = true
 		router.delete(route('admin.courses.destroy', props.course_id), {
-			onFinish: () => form.processing = false
+			onFinish 	: () => form.processing = false,
+			onError 	: (error) => alert(error.course_delete)
 		})
 	}
 </script>
