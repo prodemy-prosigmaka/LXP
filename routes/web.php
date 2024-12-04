@@ -27,8 +27,9 @@ route::get("/my-learning", [MyLearningController::class, 'index'])->name('mylear
 route::post("/my-learning/join", [MyLearningController::class, 'joinClass'])->name('mylearning.join')->middleware('auth');
 
 route::get("/learning/{courseId}", [LearningController::class, 'index'])->name('learning.index');
-route::get("/learning/{courseId}/video/{topicId}", [LearningController::class, 'showVideo'])->name('learning.show.video');
+route::get("/learning/{courseId}/article/{topicId}", [LearningController::class, 'showArticle'])->name('learning.show.article');
 route::get("/learning/{courseId}/pdf/{topicId}", [LearningController::class, 'showPdf'])->name('learning.show.pdf');
+route::get("/learning/{courseId}/video/{topicId}", [LearningController::class, 'showVideo'])->name('learning.show.video');
 
 Route::get('/inertia-example', [InertiaExampleController::class, 'index'])->name('inertia-example');
 
