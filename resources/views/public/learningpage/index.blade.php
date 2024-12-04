@@ -4,7 +4,9 @@
 
 @section('content')
     <div class="m-4 lg:m-8 flex flex-col lg:flex-row gap-8">
-        @include('public.learningpage.sidebar')
+        <div class="w-full lg:w-2/6">
+            @include('public.learningpage.sidebar')
+        </div>
 
         <main class="flex-1">
             @if ($lesson->type == 'video')
