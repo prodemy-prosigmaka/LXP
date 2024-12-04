@@ -17,7 +17,7 @@
                             <p>{{ $course->caption }}</p>
                         </div>
 
-                        <a href="{{ route('learning', $course->id) }}" class="btn btn-primary btn-sm">View Course</a>
+                        <a href="{{ route('learning.index', $course->id) }}" class="btn btn-primary btn-sm">View Course</a>
                     </div>
                 </div>
             @endforeach

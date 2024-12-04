@@ -1,6 +1,4 @@
 <main>
-    <object class="pdf" data=
-"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210101201653/PDF.pdf"
-        width="800" height="500">
+    <object class="pdf rounded-box" data={{ $lesson->pdf->pdf_url }} width="950" height="600">
     </object>
 </main>
