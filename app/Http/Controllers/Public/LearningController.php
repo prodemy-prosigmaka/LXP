@@ -23,8 +23,10 @@ class LearningController extends Controller
         // Redirect to first content
         if ($firstLesson->type == 'video') {
             return Redirect::route('learning.show.video', ['courseId' => $id, 'topicId' => $firstLesson->topic_id]);
-        } else {
+        } elseif ($firstLesson->type == 'pdf') {
             return Redirect::route('learning.show.pdf', ['courseId' => $id, 'topicId' => $firstLesson->topic_id]);
+        } else {
+            return Redirect::route('learning.show.article', ['courseId' => $id, 'topicId' => $firstLesson->topic_id]);
         }
     }
 
@@ -51,6 +53,20 @@ class LearningController extends Controller
         $lesson = Lesson::with('pdf')
             ->where('topic_id', $topicId)
             ->where('type', 'pdf')
+            ->firstOrFail();
+
+        return view('public.learningpage.index', compact('course', 'lesson'));
+    }
+
+    public function showArticle($courseId, $topicId): View
+    {
+        $course = Course::with(
+            'chapters.topics'
+        )->findOrFail($courseId);
+
+        $lesson = Lesson::with('article')
+            ->where('topic_id', $topicId)
+            ->where('type', 'article')
             ->firstOrFail();
 
         return view('public.learningpage.index', compact('course', 'lesson'));
