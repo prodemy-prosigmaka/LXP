@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TopicRequest extends FormRequest
 {
+    protected $errorBag = "topic";
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -23,9 +25,9 @@ class TopicRequest extends FormRequest
     {
         return [
 			'chapter_id' => 'required',
-			'title' => 'required|string',
+			'title'      => 'required|string',
 			'sort_order' => 'required',
-			'type' => 'required|string',
+			'type'       => 'required|string',
         ];
     }
 }

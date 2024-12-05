@@ -4,12 +4,14 @@
 	import HeaderSection from './local_components/HeaderSection.vue';
 	import CourseSection from './local_components/CourseSection.vue';
 	import ChapterSection from './local_components/ChapterSection.vue';
+	import TopicForm from './local_components/TopicForm.vue';
 
 
 	const props = defineProps({
 		instructor_options 	: Array,
 		course_id 			: [Number, null],
 		course 				: [Object, null],
+		topic 				: [Object, null],
 		flash 				: Object,
 		errors 				: Object
 	})
@@ -36,6 +38,12 @@
 		course 				: props.course,
 	}
 
+	const topic_form_props = {
+		course_id 			: props.course_id,
+		topic				: props.topic,
+		errors 				: props.errors,
+	}
+
 </script>
 
 <template>
@@ -48,4 +56,6 @@
 	<div class="divider"></div>
 
 	<ChapterSection v-bind="chapter_section_props" />
+
+	<TopicForm v-bind="topic_form_props" />
 </template>

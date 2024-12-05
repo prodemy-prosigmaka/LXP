@@ -30,7 +30,7 @@
 
 	function submit () {
 		if (props.is_course_exist) 	update_course()
-		else 					store_course()
+		else 						store_course()
 	}
 
 	function store_course () {

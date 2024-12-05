@@ -44,4 +44,9 @@ class Topic extends Model
     {
         return $this->hasOne(Lesson::class, 'topic_id');
     }
+
+    public function practice()
+    {
+        return $this->hasOne(Practice::class, 'topic_id');
+    }
 }
