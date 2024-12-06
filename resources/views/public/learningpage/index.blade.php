@@ -9,6 +9,18 @@
         </div>
 
         <main class="flex-1">
+            <div class="mb-4 flex gap-2 justify-end">
+                @if ($prevTopic)
+                    <a href="{{ route('learning.show.' . $prevTopic->lesson->type, ['courseId' => $course->id, 'topicId' => $prevTopic->id]) }}"
+                        class="btn btn-sm btn-primary">Prev</a>
+                @endif
+
+                @if ($nextTopic)
+                    <a href="{{ route('learning.show.' . $nextTopic->lesson->type, ['courseId' => $course->id, 'topicId' => $nextTopic->id]) }}"
+                        class="btn btn-sm btn-primary">Next</a>
+                @endif
+            </div>
+
             @if ($lesson->type == 'video')
                 @include('public.learningpage.video')
             @elseif ($lesson->type == 'pdf')
