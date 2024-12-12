@@ -28,7 +28,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('admin.dashboard', absolute: false));
+        $redirect_route = Auth::user()->instructor()->count()
+                            ? 'admin.dashboard'
+                            : 'mylearning';
+
+        return redirect()->intended(route($redirect_route, absolute: false));
     }
 
     /**
