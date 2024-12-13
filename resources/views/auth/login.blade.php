@@ -36,6 +36,34 @@
             </label>
         </div>
 
+        <!-- Login Credentials -->
+         <div class="mt-4">
+            <h3 class="text-sm font-semibold">Available Users :</h3>
+
+            <section class="prose">
+                <ul>
+                    <li
+                        onclick="use_teacher()"
+                        class="cursor-pointer">
+                        dummy.teacher@prosigmaka.com
+                    </li>
+                    <li
+                        onclick="use_student()"
+                        class="cursor-pointer">
+                        dummy.student@prosigmaka.com
+                    </li>
+                </ul>
+            </section>
+
+            <h3 class="text-sm font-semibold">Password :</h3>
+
+            <section class="prose">
+                <ul>
+                    <li>dummypsm</li>
+                </ul>
+            </section>
+         </div>
+
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
@@ -49,3 +77,16 @@
         </div>
     </form>
 @endsection
+
+@push('script')
+    <script type="text/javascript">
+        function use_teacher () {
+            document.querySelector('#email').value = 'dummy.teacher@prosigmaka.com'
+            document.querySelector('#password').value = 'dummypsm'
+        }
+        function use_student () {
+            document.querySelector('#email').value = 'dummy.student@prosigmaka.com'
+            document.querySelector('#password').value = 'dummypsm'
+        }
+    </script>
+@endpush

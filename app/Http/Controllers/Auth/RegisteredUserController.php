@@ -45,6 +45,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('admin.dashboard', absolute: false));
+        $redirect_route = Auth::user()->instructor()->count()
+                            ? 'admin.dashboard'
+                            : 'mylearning';
+
+        return redirect(route($redirect_route, absolute: false));
     }
 }
