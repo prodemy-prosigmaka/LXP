@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ChapterRequest extends FormRequest
 {
+    protected $errorBag = "chapter";
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -22,8 +24,8 @@ class ChapterRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'course_id' => 'required',
-			'title' => 'required|string',
+			'course_id'  => 'required',
+			'title'      => 'required|string',
         ];
     }
 }

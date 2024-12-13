@@ -3,83 +3,37 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Chapter;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Requests\ChapterRequest;
+use App\Models\Chapter;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class ChapterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request): View
+    public function store (ChapterRequest $request)
     {
-        $chapters = Chapter::paginate();
+        $chapter = Chapter::create($request->validated());
 
-        return view('admin.chapter.index', compact('chapters'))
-            ->with('i', ($request->input('page', 1) - 1) * $chapters->perPage());
+        return Redirect::route('admin.courses.show', $chapter->course_id);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): View
-    {
-        $chapter = new Chapter();
-
-        return view('admin.chapter.create', compact('chapter'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(ChapterRequest $request): RedirectResponse
-    {
-        Chapter::create($request->validated());
-
-        return Redirect::route('chapters.index')
-            ->with('success', 'Chapter created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id): View
-    {
-        $chapter = Chapter::find($id);
-
-        return view('admin.chapter.show', compact('chapter'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id): View
-    {
-        $chapter = Chapter::find($id);
-
-        return view('admin.chapter.edit', compact('chapter'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(ChapterRequest $request, Chapter $chapter): RedirectResponse
+    public function update (Chapter $chapter, ChapterRequest $request)
     {
         $chapter->update($request->validated());
 
-        return Redirect::route('chapters.index')
-            ->with('success', 'Chapter updated successfully');
+        return Redirect::route('admin.courses.show', $chapter->course_id);
     }
 
-    public function destroy($id): RedirectResponse
+    public function destroy(Chapter $chapter)
     {
-        Chapter::find($id)->delete();
+        $chapter_children_count = $chapter->topics()->count();
 
-        return Redirect::route('chapters.index')
-            ->with('success', 'Chapter deleted successfully');
+        if ($chapter_children_count > 0) {
+            return Redirect::back()
+                ->withErrors([ 'chapter_delete' => "Can't delete chapter that still has topics!" ]);
+        }
+
+        $chapter->delete();
+
+        return Redirect::route('admin.courses.show', $chapter->course_id);
     }
 }

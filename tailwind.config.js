@@ -7,6 +7,8 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './resources/views/**/*.vue',
+        './resources/js/**/*.vue',
     ],
 
     theme: {
@@ -26,7 +28,7 @@ export default {
                     // "primary": "#0064C8",
                     "primary": "#26CAD3",
                     "secondary": "#FC4F00",
-                    "accent": "#00B187",
+                    "accent": "#C7EFF1",
                     "neutral": "#eaeaea",
                     "neutral-focus": "#e6e6e6", // Hover state for neutral
                     "base-100": "#ffffff",
@@ -34,9 +36,9 @@ export default {
                     "primary-content": "#ffffff",
                     "secondary-content": "#ffffff",
                     "neutral-content": "#000000",
-                    "--rounded-btn": "10rem",
+                    "--rounded-btn": "2rem",
                     "--border-btn": "0px", 
-                    "--rounded-input": "10rem",
+                    "--rounded-input": "2rem",
                 },
             }
         ],
@@ -45,5 +47,6 @@ export default {
     plugins: [
         forms,
         require('daisyui'),
+        require('@tailwindcss/typography'),
     ],
 };

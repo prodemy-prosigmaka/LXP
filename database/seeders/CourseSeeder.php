@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Course;
 use App\Models\Instructor;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CourseSeeder extends Seeder
 {
@@ -14,8 +13,6 @@ class CourseSeeder extends Seeder
      */
     public function run(): void
     {
-        $instructorIds = Instructor::pluck('id')->toArray();
-
         $titles = [
             'Machine Learning with Python',
             'Build Backend with Go',
@@ -37,8 +34,8 @@ class CourseSeeder extends Seeder
         ];
 
         foreach ($titles as $index => $title) {
-            DB::table('courses')->insert([
-                'instructor_id' => $instructorIds[array_rand($instructorIds)],
+            Course::create([
+                'instructor_id' => Instructor::all()->value('id'),
                 'title'         => $title,
                 'caption'       => $captions[$index],
                 'description'   => $descriptions[$index],

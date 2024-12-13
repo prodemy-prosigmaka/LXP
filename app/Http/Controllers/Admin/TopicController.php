@@ -3,83 +3,37 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\Instructor;
 use App\Models\Topic;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Requests\TopicRequest;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Inertia\Inertia;
 
 class TopicController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request): View
+    public function show($topic_id)
     {
-        $topics = Topic::paginate();
+        $topic = Topic::with([
+            'lesson' => [
+                'video',
+                'pdf',
+                'article'
+            ],
+            'practice'
+        ])->findOrFail($topic_id);
 
-        return view('admin.topic.index', compact('topics'))
-            ->with('i', ($request->input('page', 1) - 1) * $topics->perPage());
-    }
+        $course = Course::with('chapters.topics')->findOrFail($topic->chapter->course->id);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): View
-    {
-        $topic = new Topic();
+        $instructor_options = Instructor::with('user')->get()->map(fn ($opt) => [
+            'value' => $opt->id,
+            'label' => $opt->user->name,
+        ]);
 
-        return view('admin.topic.create', compact('topic'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(TopicRequest $request): RedirectResponse
-    {
-        Topic::create($request->validated());
-
-        return Redirect::route('topics.index')
-            ->with('success', 'Topic created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id): View
-    {
-        $topic = Topic::find($id);
-
-        return view('admin.topic.show', compact('topic'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id): View
-    {
-        $topic = Topic::find($id);
-
-        return view('admin.topic.edit', compact('topic'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(TopicRequest $request, Topic $topic): RedirectResponse
-    {
-        $topic->update($request->validated());
-
-        return Redirect::route('topics.index')
-            ->with('success', 'Topic updated successfully');
-    }
-
-    public function destroy($id): RedirectResponse
-    {
-        Topic::find($id)->delete();
-
-        return Redirect::route('topics.index')
-            ->with('success', 'Topic deleted successfully');
+        return Inertia::render('admin/course/CourseForm', [
+            'instructor_options' => $instructor_options,
+            'course_id'         => $course->id,
+            'course'            => $course,
+            'topic'             => $topic
+        ]);
     }
 }

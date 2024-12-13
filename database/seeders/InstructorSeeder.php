@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Instructor;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class InstructorSeeder extends Seeder
 {
@@ -14,20 +14,14 @@ class InstructorSeeder extends Seeder
      */
     public function run(): void
     {
-        $userIds = User::all()->random(2)->pluck('id');
-        $occupations = ['Backend Engineer', 'Data Scientist'];
-        $genders = ['Male', 'Female'];
-        $addresses = ['123 Main St', '456 Baker St'];
+        $faker = Faker::create();
 
-        foreach ($userIds as $userId) {
-            DB::table('instructors')->insert([
-                'user_id'     => $userId,
-                'phonenumber' => '+62' . rand(8000000000, 8999999999),
-                'occupation'  => $occupations[array_rand($occupations)],
-                'gender'      => $genders[array_rand($genders)],
-                'address'     => $addresses[array_rand($addresses)],
-            ]);
-        }
-
+        Instructor::create([
+            'user_id'     => User::where('name', 'like', '%Teacher%')->value('id'),
+            'phonenumber' => $faker->phoneNumber(),
+            'occupation'  => $faker->jobTitle(),
+            'gender'      => $faker->randomElement(['male', 'female']),
+            'address'     => $faker->address(),
+        ]);
     }
 }

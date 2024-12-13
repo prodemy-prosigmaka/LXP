@@ -3,11 +3,13 @@
         [
             'title' => 'Dashboard',
             'icon' => 'lucide-house',
-            'route' => 'dashboard'
+            'route' => 'admin.dashboard',
+            'match' => 'admin.dashboard',
         ],[
             'title' => 'Course CMS',
             'icon' => 'lucide-book-marked',
-            'route' => 'courses.index'
+            'route' => 'admin.courses.index',
+            'match' => 'admin.courses.*',
         ]
     ]));
 ?>
@@ -19,7 +21,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('admin.dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
@@ -28,7 +30,7 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden md:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
+                <x-dropdown-menu align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
@@ -57,12 +59,14 @@
                             </x-dropdown-link>
                         </form>
                     </x-slot>
-                </x-dropdown>
+                </x-dropdown-menu>
             </div>
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center md:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button
+                    @click="open = ! open"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -84,7 +88,7 @@
                     >
                         <x-dynamic-component
                             :component="$menu->icon"
-                            class="w-5 h-5 {{ request()->routeIs($menu->route) ? 'text-primary' : 'text-gray-500 group-hover:text-primary' }}"
+                            class="w-5 h-5 {{ request()->routeIs($menu->match) ? 'text-primary' : 'text-gray-500 group-hover:text-primary' }}"
                         />
                     </a>
                 @endforeach
@@ -96,7 +100,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @foreach( $menus as $menu )
-                <x-responsive-nav-link :href="route($menu->route)" :active="request()->routeIs($menu->route)">
+                <x-responsive-nav-link :href="route($menu->route)" :active="request()->routeIs($menu->match)">
                     {{ $menu->title }}
                 </x-responsive-nav-link>
             @endforeach
@@ -129,15 +133,15 @@
     </div>
 </nav>
 
-<aside id="logo-sidebar" class="fixed top-0 mt-16 left-0 z-20 w-56 h-screen pt-2 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-    <div class="h-full pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+<aside id="logo-sidebar" class="fixed top-0 mt-16 left-0 z-20 w-56 h-screen pt-2 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0" aria-label="Sidebar">
+    <div class="h-full pb-4 overflow-y-auto bg-white">
        <ul class="space-y-2 font-medium">
 
             @foreach( $menus as $menu )
                 <li>
                     <x-side-link
                         :href="route($menu->route)"
-                        :active="request()->routeIs($menu->route)"
+                        :active="request()->routeIs($menu->match)"
                         :icon="$menu->icon"
                     >
                          {{ $menu->title }}
