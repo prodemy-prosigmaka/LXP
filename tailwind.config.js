@@ -48,5 +48,13 @@ export default {
         forms,
         require('daisyui'),
         require('@tailwindcss/typography'),
+        require('tailwind-typewriter')({
+            wordsets: {
+                greeting: {
+                    words: ['hello world, '],
+                    delay: 3
+                }
+            }
+        })
     ],
 };
