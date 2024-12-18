@@ -23,7 +23,6 @@
         "@vitejs/plugin-vue": "^5.2.1",
         "@vueup/vue-quill": "^1.2.0",
         "lucide-vue-next": "^0.462.0",
-        "tailwind-typewriter": "^1.0.1",
         "vuedraggable": "^4.1.0"
     }
 }
