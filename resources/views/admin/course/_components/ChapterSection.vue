@@ -232,12 +232,12 @@
 					@change="handle_drag_change(chapters_drag[chapter_index].topics)"
 				>
 					<template #item="{element: topic}">
-						<section class="flex cursor-grab items-center rounded-2xl bg-gray-100 text-sm">
+						<section class="flex cursor-grab items-center overflow-hidden rounded-2xl bg-gray-100 text-sm">
 							<span class="p-4">{{ topic.title }}</span>
 							<div class="flex-grow"></div>
 
 							<button
-								class="flex items-center border-l border-gray-200 p-4 focus:opacity-50"
+								class="flex items-center border-l border-gray-200 p-4 hover:bg-gray-200 focus:opacity-50"
 								@click="edit_topic(chapter.id, topic.id)"
 							>
 								<span class="mr-2 text-sm font-semibold">Detail</span>

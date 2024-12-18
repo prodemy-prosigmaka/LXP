@@ -30,6 +30,8 @@
 	}
 
 	function submit () {
+		if (form.type === 'practice') return alert('Practice feature is not implemented yet!')
+
 		if (is_topic_exists)	update_topic()
 		else					store_topic()
 	}
@@ -52,9 +54,14 @@
 	}
 
 	function update_topic () {
-		const is_confirmed = confirm(`If you change the topic's type, you will lose all related data of the previous type. Are you sure?`)
+		const is_type_change = props.children_type !== form.children_type
 
-		if (!is_confirmed) return false
+		if (is_type_change) {
+			const is_confirmed = confirm(`If you change the topic's type, you will lose all related data of the previous type. Are you sure?`)
+
+			if (!is_confirmed) return false
+		}
+
 
 		form.put(route('admin.topics.update', {
 			course	: props.course_id,
@@ -62,8 +69,16 @@
 			topic	: props.topic_id,
 		}), {
 			preserveState	: "errors",
-			onSuccess		: reset_form,
-			onError			: errors => form.setError(errors)
+			onError			: errors => form.setError(errors),
+			onSuccess		: () => {
+				reset_form()
+
+				if (!is_type_change) return
+				window.scrollTo({
+					top: 400,
+					behavior: 'smooth'
+				})
+			},
 		})
 	}
 
@@ -90,7 +105,7 @@
 
 <template>
 	<form
-		@submit.prevent="submit"
+		@submit.prevent="children_type === form.children_type ? submit() : submit_no_leave()"
 		class="grid gap-6 rounded-3xl bg-white p-8 shadow">
 
 		<FormInput
@@ -170,7 +185,7 @@
 				v-if="is_editing"
 				:disabled="form.processing"
 				@click="submit_no_leave"
-				:type="is_topic_exists ? 'button' : 'submit'"
+				:type="is_topic_exists && children_type === form.children_type ? 'button' : 'submit'"
 				class="btn btn-primary btn-md shadow">
 				<span
 					v-if="form.processing && !form.leave_after_submit"
@@ -180,7 +195,7 @@
 			</button>
 
 			<button
-				v-if="is_editing && is_topic_exists"
+				v-if="is_editing && is_topic_exists && children_type === form.children_type"
 				:disabled="form.processing"
 				type="submit"
 				class="btn btn-primary btn-md shadow">
