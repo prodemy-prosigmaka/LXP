@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Lesson extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -53,5 +53,13 @@ class Lesson extends Model
     {
         return $this->hasOne(LessonArticle::class, 'lesson_id');
     }
-    
+
+    public function children_model()
+    {
+        switch ($this->type) {
+            case 'article'  : return $this->article();
+            case 'video'    : return $this->video();
+            case 'pdf'      : return $this->pdf();
+        }
+    }
 }

@@ -1,22 +1,30 @@
 <script setup>
-	import { ref, reactive } from 'vue';
+	import { ref, reactive, onMounted, nextTick } from 'vue';
 	import { PlusIcon, SquarePenIcon, Trash2Icon, ArrowRight, XIcon, CheckIcon } from 'lucide-vue-next';
-	import { Alert, FormInput } from '@/components';
-	import { useForm, router, Link } from '@inertiajs/vue3';
+	import { useForm, router } from '@inertiajs/vue3';
 	import Draggable from 'vuedraggable'
+
+	import { Alert, FormInput } from '@/components';
+	import { use_scroll_position_store } from '@/stores/scroll_position';
+
 
 	const props = defineProps({
 		flash 			: Object,
 		course 			: Object,
+		course_id 		: [Number, String],
 		is_course_exist : Boolean
 	})
+
+	const scroll_position = use_scroll_position_store()
 
 	const is_creating 		= ref(false)
 	const is_editing 		= ref(false)
 	const is_deleting_id 	= ref(0)
+	const is_saving_sort	= ref(false)
 
-	const chapters_drag 	= reactive(props.is_course_exist ? [...props.course.chapters] : [])
-	const drag 				= ref(false)
+	const chapters_drag 	= reactive(props.is_course_exist
+										? JSON.parse(JSON.stringify(props.course.chapters))
+										: [])
 
 	const chapter_form 	= useForm({
 		id 			: '',
@@ -41,6 +49,7 @@
 
 	function reset_form () {
 		chapter_form.reset()
+		chapter_form.clearErrors()
 		is_editing.value 	= false
 		is_creating.value 	= false
 	}
@@ -48,16 +57,18 @@
 	function store_chapter () {
 		chapter_form.post(route('admin.chapters.store'), {
 			preserveScroll 	: true,
-			preserveState 	: false,
-			onSuccess 		: reset_form
+			preserveState 	: "errors",
+			onSuccess 		: reset_form,
+			onError			: errors => chapter_form.setError(errors)
 		})
 	}
 
 	function update_chapter () {
 		chapter_form.put(route('admin.chapters.update', chapter_form.id), {
 			preserveScroll 	: true,
-			preserveState 	: false,
-			onSuccess 		: reset_form
+			preserveState 	: "errors",
+			onSuccess 		: reset_form,
+			onError			: errors => chapter_form.setError(errors)
 		})
 	}
 
@@ -84,14 +95,59 @@
 			}
 		})
 	}
+
+	function create_topic (chapter_id) {
+		scroll_position.set_last_value(window.scrollY)
+
+		router.visit(route('admin.topics.create', {
+			course: props.course_id,
+			chapter: chapter_id
+		}))
+	}
+
+	function edit_topic (chapter_id, topic_id) {
+		scroll_position.set_last_value(window.scrollY)
+
+		router.visit(route('admin.topics.edit', {
+			course: props.course_id,
+			chapter: chapter_id,
+			topic: topic_id
+		}))
+	}
+
+	function handle_drag_change (topics) {
+		is_saving_sort.value = true
+		const sort_payload = []
+
+		for (const index in topics) {
+			sort_payload.push({
+				id			: topics[index].id,
+				sort_order	: Number(index) + 1,
+			})
+		}
+
+		router.patch(route('admin.topic_sorts.update'), sort_payload, {
+			preserveScroll	: true,
+			preserveState	: true,
+			onFinish		: () => is_saving_sort.value = false
+		})
+	}
+
+	onMounted(async () => {
+		if (scroll_position.last_value) {
+			await nextTick()
+			window.scrollTo(0, scroll_position.last_value)
+			scroll_position.set_last_value(0)
+		}
+	})
 </script>
 
 <template>
 	<section
 		v-if="is_course_exist"
-		class="min-h-screen mt-8 flex flex-col items-start gap-6"
+		class="mt-8 flex min-h-screen flex-col items-start gap-6"
 	>
-		<h2 class="text-3xl font-semibold mb-4">Chapters & Topics</h2>
+		<h2 class="mb-4 text-3xl font-semibold">Chapters & Topics</h2>
 
 		<Alert
 			v-if="flash.success && flash.success?.includes('created')"
@@ -99,7 +155,9 @@
 			type="success"/>
 
 		<template v-for="(chapter, chapter_index) in course.chapters">
-			<div class="bg-white p-8 rounded-3xl shadow w-full grid gap-4">
+			<div class="grid w-full gap-4 rounded-3xl bg-white p-8 shadow">
+
+				<!-- Chapter Title & Edit Form -->
 				<form
 					@submit.prevent="submit_chapter"
 					class="flex items-center gap-4">
@@ -121,15 +179,15 @@
 								@click="delete_chapter(chapter)"
 								:disabled="is_deleting_id != 0"
 								title="Delete Chapter"
-								class="btn btn-md join-item shadow btn-neutral">
+								class="btn join-item btn-neutral btn-md shadow">
 								<span v-if="is_deleting_id == chapter.id" class="loading loading-spinner"></span>
-								<Trash2Icon class="w-4 h-4" />
+								<Trash2Icon class="h-4 w-4" />
 							</button>
 							<button
 								@click="edit_chapter(chapter)"
 								title="Edit Chapter"
-								class="btn btn-md join-item shadow btn-secondary">
-								<SquarePenIcon class="w-4 h-4" />
+								class="btn btn-secondary join-item btn-md shadow">
+								<SquarePenIcon class="h-4 w-4" />
 							</button>
 						</template>
 
@@ -139,61 +197,74 @@
 								:disabled="chapter_form.processing"
 								title="Cancel Edit"
 								type="button"
-								class="btn btn-md join-item shadow btn-neutral">
-								<XIcon class="w-4 h-4" />
+								class="btn join-item btn-neutral btn-md shadow">
+								<XIcon class="h-4 w-4" />
 							</button>
 							<button
 								:disabled="chapter_form.processing"
 								title="Submit"
 								type="submit"
-								class="btn btn-md join-item shadow btn-secondary">
+								class="btn btn-secondary join-item btn-md shadow">
 								<span v-if="chapter_form.processing" class="loading loading-spinner"></span>
-								<CheckIcon v-else class="w-4 h-4" />
+								<CheckIcon v-else class="h-4 w-4" />
 							</button>
 						</template>
 					</div>
 				</form>
+				<span
+					v-if="chapter_form.errors.title && chapter_form.id == chapter.id"
+					class="label-text-alt text-sm text-red-500">
+					{{ chapter_form.errors.title }}
+				</span>
 
+				<!-- === Draggable Topic List === -->
 				<Draggable
 					v-model="chapters_drag[chapter_index].topics"
-					item-key="id"
-					@start="drag=true"
-					@end="drag=false"
 					class="flex flex-col gap-4"
+					ghost-class="opacity-50"
+					item-key="id"
+					:animation="200"
+					:disabled="is_saving_sort"
 					:component-data="{
 						type: 'transition-group',
 						name: 'flip-list'
 					}"
-					:animation="200"
-			        ghost-class="opacity-50"
+					@change="handle_drag_change(chapters_drag[chapter_index].topics)"
 				>
-					<template #item="{element}">
-						<Link
-							:href="$route('admin.topics.show', element.id)"
-							preserve-scroll
-							class="bg-gray-100 p-4 rounded-2xl text-sm cursor-grab flex items-center">
-							<span class="cursor-pointer">{{ element.title }}</span>
+					<template #item="{element: topic}">
+						<section class="flex cursor-grab items-center rounded-2xl bg-gray-100 text-sm">
+							<span class="p-4">{{ topic.title }}</span>
 							<div class="flex-grow"></div>
-							<ArrowRight class="w-4 h-4 cursor-pointer" />
-						</Link>
+
+							<button
+								class="flex items-center border-l border-gray-200 p-4 focus:opacity-50"
+								@click="edit_topic(chapter.id, topic.id)"
+							>
+								<span class="mr-2 text-sm font-semibold">Detail</span>
+								<ArrowRight class="h-4 w-4 cursor-pointer" />
+							</button>
+						</section>
 					</template>
 				</Draggable>
 
-				<!-- <template v-for="topic in chapters_drag[chapter_index].topics">
-					<Link
-						:href="$route('admin.topics.show', chapter.id)"
+				<!-- === Add New Topic Button === -->
+				<section>
+					<button
+						@click="create_topic(chapter.id)"
 						preserve-scroll
-						class="bg-gray-100 p-4 rounded-2xl text-sm cursor-grab transition hover:scale-[102%] flex items-center">
-						{{ topic.title }}
-						<div class="flex-grow"></div>
-						<ArrowRight class="w-4 h-4" />
-					</Link>
-				</template> -->
+						class="btn rounded-2xl bg-gray-100"
+					>
+						<PlusIcon class="h-4 w-4" />
+						Add New Topic
+					</button>
+				</section>
 			</div>
 		</template>
 
+
+		<!-- === Create New Chapter Form === -->
 		<template v-if="is_creating">
-			<div class="bg-white p-8 rounded-3xl shadow w-full grid gap-4">
+			<div class="grid w-full gap-4 rounded-3xl bg-white p-8 shadow">
 				<form
 					@submit.prevent="submit_chapter"
 					class="flex items-center gap-4">
@@ -210,31 +281,33 @@
 							:disabled="chapter_form.processing"
 							title="Cancel Edit"
 							type="button"
-							class="btn btn-md join-item shadow btn-neutral">
-							<XIcon class="w-4 h-4" />
+							class="btn join-item btn-neutral btn-md shadow">
+							<XIcon class="h-4 w-4" />
 						</button>
 						<button
 							:disabled="chapter_form.processing"
 							title="Submit"
 							type="submit"
-							class="btn btn-md join-item shadow btn-secondary">
-							<span
-								v-if="chapter_form.processing"
-								class="loading loading-spinner"></span>
-							<CheckIcon
-								v-else
-								class="w-4 h-4" />
+							class="btn btn-secondary join-item btn-md shadow">
+							<span v-if="chapter_form.processing" class="loading loading-spinner"></span>
+							<CheckIcon v-else class="h-4 w-4" />
 						</button>
 					</div>
 				</form>
+				<span
+					v-if="chapter_form.errors.title"
+					class="label-text-alt text-sm text-red-500">
+					{{ chapter_form.errors.title }}
+				</span>
 			</div>
 		</template>
 
+		<!-- === Create New Chapter Button === -->
 		<button
 			v-if="!is_creating && !is_editing"
 			@click="create_chapter"
-			class="btn btn-lg bg-white shadow text-sm">
-			<PlusIcon class="w-4 h-4" />
+			class="btn btn-lg bg-white text-sm shadow">
+			<PlusIcon class="h-4 w-4" />
 			Add New Chapter
 		</button>
 	</section>

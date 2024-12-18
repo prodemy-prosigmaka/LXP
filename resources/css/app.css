@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-    html, body { scroll-behavior: smooth; }
-}
-
 @layer components {
     .btn {
         padding-left: 2rem;

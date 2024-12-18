@@ -1,11 +1,11 @@
 <script setup>
-	import { Transition, ref, onMounted } from 'vue';
+	import { ref, onMounted } from 'vue';
 	import { router, useForm } from '@inertiajs/vue3'
 	import { ChevronLeftIcon, CheckIcon } from 'lucide-vue-next';
 	import { QuillEditor } from '@vueup/vue-quill'
 	import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
-	import { FormInput, FormTextarea } from '@/components';
+	import { FormInput } from '@/components';
 
 
 	const props = defineProps({
@@ -112,7 +112,7 @@
 			appear-from-class="translate-x-24 opacity-0"
 			leave-to-class="translate-x-24 opacity-0"
 		>
-			<div v-show="is_show" class="absolute bg-white rounded-l-3xl top-0 bottom-0 right-0 w-2/3 h-screen shadow-xl p-8 overflow-scroll">
+			<div v-show="is_show" class="absolute bottom-0 right-0 top-0 h-screen w-2/3 overflow-scroll rounded-l-3xl bg-white p-8 shadow-xl">
 				<header class="flex items-center justify-between">
 					<h2 class="text-2xl font-semibold">
 						Topic Form
@@ -121,7 +121,7 @@
 					<button
 						@click="initiate_go_back"
 						class="btn btn-md shadow">
-						<ChevronLeftIcon class="w-4 h-4" />
+						<ChevronLeftIcon class="h-4 w-4" />
 						Back
 					</button>
 				</header>
@@ -139,7 +139,7 @@
 
 					<section class="form-control flex-row items-center">
 						<span class="label-text w-24">Topic Type:</span>
-						<div class="tabs tabs-boxed">
+						<div class="tabs-boxed tabs">
 							<button
 								:class="{'tab-active': topic_form.type == 'lesson'}"
 								@click="topic_form.type = 'lesson'"
@@ -161,7 +161,7 @@
 						v-if="topic_form.type == 'lesson'"
 						class="form-control flex-row items-center">
 						<span class="label-text w-24">Lesson Type:</span>
-						<div class="tabs tabs-boxed">
+						<div class="tabs-boxed tabs">
 							<button
 								:class="{'tab-active': topic_form.lesson?.type == 'video'}"
 								@click="topic_form.lesson.type = 'video'"
@@ -190,7 +190,7 @@
 						v-if="topic_form.type == 'practice'"
 						class="form-control flex-row items-center">
 						<span class="label-text w-24">Practice Type:</span>
-						<div class="tabs tabs-boxed">
+						<div class="tabs-boxed tabs">
 							<button
 								:class="{'tab-active': topic_form.practice?.type == 'single_choice'}"
 								@click="topic_form.practice.type = 'single_choice'"
@@ -223,7 +223,7 @@
 						<iframe
 							v-if="topic_form.lesson.video.video_url"
 							:src="topic_form.lesson.video.video_url"
-							class="aspect-video w-full rounded-box mt-6"
+							class="mt-6 aspect-video w-full rounded-box"
 						    title="YouTube video player" frameborder="0"
 						    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
@@ -239,7 +239,7 @@
 						<object
 							v-if="topic_form.lesson.pdf.pdf_url"
 							:data="topic_form.lesson.pdf.pdf_url"
-							class="pdf rounded-box w-full h-[300px] mt-6">
+							class="pdf mt-6 h-[300px] w-full rounded-box">
 						</object>
 					</section>
 
@@ -262,8 +262,8 @@
 					<section class="flex justify-end">
 						<button
 							type="submit"
-							class="btn btn-md btn-primary shadow">
-							<CheckIcon class="w-4 h-4" />
+							class="btn btn-primary btn-md shadow">
+							<CheckIcon class="h-4 w-4" />
 							Submit
 						</button>
 					</section>
@@ -273,7 +273,7 @@
 	</section>
 </template>
 
-<style>
+<style lang="postcss">
 	.ql-toolbar.ql-snow {
 		@apply rounded-t-2xl;
 	}

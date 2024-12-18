@@ -1,15 +1,14 @@
 <script setup>
 	import { Head } from '@inertiajs/vue3'
 
-	import HeaderSection from './local_components/HeaderSection.vue';
-	import CourseSection from './local_components/CourseSection.vue';
-	import ChapterSection from './local_components/ChapterSection.vue';
-	import TopicForm from './local_components/TopicForm.vue';
+	import HeaderSection from './_components/HeaderSection.vue';
+	import CourseSection from './_components/CourseSection.vue';
+	import ChapterSection from './_components/ChapterSection.vue';
 
 
 	const props = defineProps({
 		instructor_options 	: Array,
-		course_id 			: [Number, null],
+		course_id 			: [Number, String, null],
 		course 				: [Object, null],
 		topic 				: [Object, null],
 		flash 				: Object,
@@ -37,13 +36,6 @@
 		course_id 			: props.course_id,
 		course 				: props.course,
 	}
-
-	const topic_form_props = {
-		course_id 			: props.course_id,
-		topic				: props.topic,
-		errors 				: props.errors,
-	}
-
 </script>
 
 <template>
@@ -57,5 +49,4 @@
 
 	<ChapterSection v-bind="chapter_section_props" />
 
-	<TopicForm v-bind="topic_form_props" />
 </template>

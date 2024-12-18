@@ -13,14 +13,14 @@ class ChapterController extends Controller
     {
         $chapter = Chapter::create($request->validated());
 
-        return Redirect::route('admin.courses.show', $chapter->course_id);
+        return Redirect::route('admin.courses.edit', $chapter->course_id);
     }
 
     public function update (Chapter $chapter, ChapterRequest $request)
     {
         $chapter->update($request->validated());
 
-        return Redirect::route('admin.courses.show', $chapter->course_id);
+        return Redirect::route('admin.courses.edit', $chapter->course_id);
     }
 
     public function destroy(Chapter $chapter)
@@ -34,6 +34,6 @@ class ChapterController extends Controller
 
         $chapter->delete();
 
-        return Redirect::route('admin.courses.show', $chapter->course_id);
+        return Redirect::route('admin.courses.edit', $chapter->course_id);
     }
 }

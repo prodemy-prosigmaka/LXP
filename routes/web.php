@@ -9,8 +9,12 @@ use App\Http\Controllers\Public\PublicCourseController;
 // admin
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LessonArticleController;
+use App\Http\Controllers\Admin\LessonPdfController;
+use App\Http\Controllers\Admin\LessonVideoController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TopicController;
+use App\Http\Controllers\Admin\TopicSortController;
 use App\Http\Controllers\Public\InertiaExampleController;
 use App\Http\Controllers\Public\LandingController;
 use App\Http\Controllers\Public\LearningController;
@@ -46,9 +50,20 @@ Route::middleware('auth')
     {
         Route::get('/dasboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::resource('courses', CourseController::class)->except('edit');
+        Route::resource('courses', CourseController::class)->except('show');
         Route::resource('chapters', ChapterController::class)->only('store', 'update', 'destroy');
-        Route::resource('topics', TopicController::class)->only('show');
+
+        Route::prefix('courses/{course}/chapters/{chapter}')->group(function () {
+            Route::resource('topics', TopicController::class)->except('index', 'show');
+        });
+
+        Route::prefix('courses/{course}')->group(function () {
+            Route::resource('lesson_videos', LessonVideoController::class)->only('store', 'update');
+            Route::resource('lesson_pdfs', LessonPdfController::class)->only('store', 'update');
+            Route::resource('lesson_articles', LessonArticleController::class)->only('store', 'update');
+        });
+
+        Route::patch('topic_sorts', [TopicSortController::class, 'update'])->name('topic_sorts.update');
     }
 );
 

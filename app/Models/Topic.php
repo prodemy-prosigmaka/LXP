@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * Class Topic
@@ -21,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Topic extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -48,5 +49,35 @@ class Topic extends Model
     public function practice()
     {
         return $this->hasOne(Practice::class, 'topic_id');
+    }
+
+    /**
+     * custom relationship function to get related
+     * children model based on topic's type value
+     */
+    public function children_model()
+    {
+        switch ($this->type) {
+            case 'lesson'   : return $this->lesson();
+            case 'practice' : return $this->practice();
+        }
+    }
+
+    /**
+     * function to clean all topic's children and grandchildren
+     */
+    public function delete_children()
+    {
+        $lesson_child     = $this->lesson()->first();
+        $practice_child   = $this->practice()->first();
+
+        if ($lesson_child) {
+            $lesson_child->children_model()->delete();
+            $lesson_child->delete();
+        }
+
+        if ($practice_child) {
+            $practice_child->delete();
+        }
     }
 }

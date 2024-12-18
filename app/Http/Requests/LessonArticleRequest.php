@@ -22,8 +22,9 @@ class LessonArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'lesson_id' => 'required',
-			'content' => 'required|string',
+			'lesson_id'             => 'required',
+			'content'               => 'required|string',
+            'leave_after_submit'    => 'boolean',
         ];
     }
 }
