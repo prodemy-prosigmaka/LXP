@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TopicController;
 use App\Http\Controllers\Public\InertiaExampleController;
+use App\Http\Controllers\Public\LandingController;
 use App\Http\Controllers\Public\LearningController;
 
 // lib
@@ -21,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 /**
  * Public Routes
  */
-route::get("/", [PublicCourseController::class, 'index'])->name('courselist.index');
+route::get("/", [LandingController::class, 'index'])->name('landing.index');
+route::get("/courses", [PublicCourseController::class, 'index'])->name('courselist.index');
 route::get("/course/detail/{id}", [PublicCourseController::class, 'show'])->name('courselist.detail');
 
 route::get("/my-learning", [MyLearningController::class, 'index'])->name('mylearning');

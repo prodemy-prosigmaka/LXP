@@ -16,6 +16,28 @@ export default {
             fontFamily: {
                 sans: ['Mulish', ...defaultTheme.fontFamily.sans],
             },
+            keyframes: {
+                typing: {
+                  "0%": {
+                    width: "0%",
+                    visibility: "hidden"
+                  },
+                  "100%": {
+                    width: "100%"
+                  }  
+                },
+                blink: {
+                  "50%": {
+                    borderColor: "transparent"
+                  },
+                  "100%": {
+                    borderColor: "white"
+                  }  
+                }
+            },
+            animation: {
+                typing: "typing 2s steps(20) infinite alternate, blink .7s infinite"
+            }
         },
     },
 
@@ -32,6 +54,7 @@ export default {
                     "neutral": "#eaeaea",
                     "neutral-focus": "#e6e6e6", // Hover state for neutral
                     "base-100": "#ffffff",
+                    "base-200": "#FBFBFB",
 
                     "primary-content": "#ffffff",
                     "secondary-content": "#ffffff",
