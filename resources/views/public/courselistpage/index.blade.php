@@ -11,7 +11,7 @@
                 <a href="{{ route('courselist.detail', $course->id) }}"
                     class="card bg-base-100 shadow-xl hover:bg-primary transition duration-300">
                     <figure class="px-8 pt-8">
-                        <img src="{{ $course->image }}" alt="course-image" class="rounded-xl w-full aspect-video object-cover" />
+                        <img src="{{ $course->image }}" alt="course-image" class="rounded-xl w-full aspect-[3/2] object-cover" />
                     </figure>
                     <div class="card-body">
                         <h2 class="card-title font-bold">{{ $course->title }}</h2>
