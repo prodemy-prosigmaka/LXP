@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Practice extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -38,5 +38,5 @@ class Practice extends Model
     {
         return $this->belongsTo(\App\Models\Topic::class, 'topic_id', 'id');
     }
-    
+
 }

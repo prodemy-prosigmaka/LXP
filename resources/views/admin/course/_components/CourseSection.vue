@@ -9,7 +9,6 @@
 		instructor_options 	: Array,
 		course_id 			: [Number, null],
 		course 				: [Object, null],
-		errors 				: Object,
 		is_course_exist 	: Boolean
 	})
 
@@ -35,15 +34,18 @@
 
 	function store_course () {
 		form.post(route('admin.courses.store'), {
-			preserveState: false,
-			onSuccess: () => window.location.hash = 'post-create-anchor'
+			preserveState: "errors",
+			onSuccess: () => window.scrollTo({
+				top: 500,
+				behavior: 'smooth'
+			}),
+			onError: errors => form.setError(errors)
 		})
 	}
 
 	function update_course () {
 		form.put(route('admin.courses.update', props.course_id), {
-			preserveState: false,
-			onSuccess: () => window.location.hash = ''
+			preserveState: "errors",
 		})
 	}
 
@@ -57,19 +59,25 @@
 			onError 	: (error) => alert(error.course_delete)
 		})
 	}
+
+	function reset_form () {
+		form.reset()
+		form.clearErrors()
+		is_editing.value = false
+	}
 </script>
 
 <template>
 	<form
 		@submit.prevent="submit"
-		class="bg-white p-8 rounded-3xl shadow grid grid-cols-12 gap-8"
+		class="grid grid-cols-12 gap-8 rounded-3xl bg-white p-8 shadow"
 	>
 		<section class="col-span-7 flex flex-col gap-4">
 
 			<FormInput
 				label="Course Title"
 				v-model="form.title"
-				:error="errors.course?.title"
+				:error="form.errors.title"
 				:autofocus="is_editing"
 				:readonly="!is_editing"
 				type="text"
@@ -78,7 +86,7 @@
 			<FormSelect
 				label="Instructor"
 				v-model="form.instructor_id"
-				:error="errors.course?.instructor_id"
+				:error="form.errors.instructor_id"
 				:options="instructor_options"
 				:readonly="!is_editing"
 			/>
@@ -86,7 +94,7 @@
 			<FormInput
 				label="Caption"
 				v-model="form.caption"
-				:error="errors.course?.caption"
+				:error="form.errors.caption"
 				:readonly="!is_editing"
 				type="text"
 			/>
@@ -94,7 +102,7 @@
 			<FormTextarea
 				label="Description"
 				v-model="form.description"
-				:error="errors.course?.description"
+				:error="form.errors.description"
 				:readonly="!is_editing"
 				rows="4"
 			/>
@@ -104,12 +112,12 @@
 		<section class="col-span-5 flex flex-col gap-2">
 			<img
 				:src="preview_image"
-				class="w-full aspect-[4/3] object-cover rounded-2xl">
+				class="aspect-[4/3] w-full rounded-2xl object-cover">
 
 			<FormInput
 				label="Image URL"
 				v-model="form.image"
-				:error="errors.course?.image"
+				:error="form.errors.image"
 				:readonly="!is_editing"
 				@change="(evt) => preview_image = evt.target.value"
 				type="text"
@@ -117,15 +125,15 @@
 
 			<span id="post-create-anchor" class="flex-grow"></span>
 
-			<div class="flex justify-end gap-2 mt-4">
+			<div class="mt-4 flex justify-end gap-2">
 				<button
 					v-if="!is_editing && props.is_course_exist"
 					@click="delete_course"
 					:disabled="form.processing"
 					type="button"
-					class="btn btn-md btn-neutral shadow">
+					class="btn btn-neutral btn-md shadow">
 					<span  v-if="form.processing" class="loading loading-spinner"/>
-					<Trash2Icon v-else class="w-4 h-4" />
+					<Trash2Icon v-else class="h-4 w-4" />
 					Delete
 				</button>
 
@@ -134,18 +142,18 @@
 					@click="is_editing = true"
 					:disabled="form.processing"
 					type="button"
-					class="btn btn-md btn-secondary shadow">
-					<SquarePenIcon class="w-4 h-4" />
+					class="btn btn-secondary btn-md shadow">
+					<SquarePenIcon class="h-4 w-4" />
 					Edit
 				</button>
 
 				<button
 					v-if="is_editing && props.is_course_exist"
-					@click="is_editing = false"
+					@click="reset_form"
 					:disabled="form.processing"
 					type="button"
-					class="btn btn-md btn-neutral shadow">
-					<XIcon class="w-4 h-4" />
+					class="btn btn-neutral btn-md shadow">
+					<XIcon class="h-4 w-4" />
 					Cancel
 				</button>
 
@@ -153,9 +161,9 @@
 					v-if="is_editing"
 					:disabled="form.processing"
 					type="submit"
-					class="btn btn-md btn-primary shadow">
+					class="btn btn-primary btn-md shadow">
 					<span  v-if="form.processing" class="loading loading-spinner"/>
-					<CheckIcon v-else class="w-4 h-4" />
+					<CheckIcon v-else class="h-4 w-4" />
 					Submit
 				</button>
 			</div>

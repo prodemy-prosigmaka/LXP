@@ -6,8 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CourseRequest extends FormRequest
 {
-    protected $errorBag = "course";
-
     /**
      * Determine if the user is authorized to make this request.
      */

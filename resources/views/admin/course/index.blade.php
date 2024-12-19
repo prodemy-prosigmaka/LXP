@@ -12,8 +12,8 @@
         <x-slot:header_action>
             <a
                 href="{{ route('admin.courses.create') }}"
-                class="btn shadow btn-primary mt-4 md:mt-0 w-full md:w-auto">
-                <x-lucide-file-plus-2 class="w-4 h-4 "/>
+                class="btn btn-primary mt-4 w-full shadow md:mt-0 md:w-auto">
+                <x-lucide-file-plus-2 class="h-4 w-4"/>
                 Add new
             </a>
         </x-slot>
@@ -21,11 +21,11 @@
 
         <x-table.parent class="mt-8">
             <x-slot:thead>
-                <x-table.th class="min-w-12 w-12"> # </x-table.th>
+                <x-table.th class="w-12 min-w-12"> # </x-table.th>
                 <x-table.th> Title </x-table.th>
                 <x-table.th> Instructor </x-table.th>
                 <x-table.th> Students </x-table.th>
-                <x-table.th class="min-w-36 w-36 sticky right-0"> Action </x-table.th>
+                <x-table.th class="sticky right-0 w-36 min-w-36"> Action </x-table.th>
             </x-slot>
 
             <x-slot:tbody>
@@ -38,9 +38,9 @@
                         <x-table.td>{{ $course->students_count }}</x-table.td>
                         <x-table.td :sort_order="$order">
                             <a
-                                href="{{ route('admin.courses.show', $course->id) }}"
-                                class="btn btn-sm btn-secondary shadow">
-                                <x-lucide-square-pen class="w-4 h-4 "/>
+                                href="{{ route('admin.courses.edit', $course->id) }}"
+                                class="btn btn-secondary btn-sm shadow">
+                                <x-lucide-square-pen class="h-4 w-4"/>
                                 Detail
                             </a>
                         </x-table.td>

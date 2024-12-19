@@ -42,7 +42,7 @@ class CourseController extends Controller
     /**
      * Show the interactive cms for creating or editing a course.
      */
-    public function show($id)
+    public function edit($id)
     {
         $course = Course::with('chapters.topics')->findOrFail($id);
 
@@ -73,7 +73,7 @@ class CourseController extends Controller
 
         $course = Course::create($validated);
 
-        return Redirect::route('admin.courses.show', $course->id)
+        return Redirect::route('admin.courses.edit', $course->id)
             ->with("success", "Course created successfully! Try to add new chapter for your course! 👇");
     }
 
@@ -84,7 +84,7 @@ class CourseController extends Controller
     {
         $course->update($request->validated());
 
-        return Redirect::route('admin.courses.show', $course->id)
+        return Redirect::route('admin.courses.edit', $course->id)
             ->with("success", "Course updated successfully!");
     }
 

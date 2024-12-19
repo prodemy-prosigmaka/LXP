@@ -22,8 +22,9 @@ class LessonPdfRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'lesson_id' => 'required',
-			'pdf_url' => 'required|string',
+			'lesson_id'             => 'required',
+			'pdf_url'               => 'required|string',
+            'leave_after_submit'    => 'boolean',
         ];
     }
 }
