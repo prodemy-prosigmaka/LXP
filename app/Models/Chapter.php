@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Chapter extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -40,7 +40,7 @@ class Chapter extends Model
 
     public function topics()
     {
-        return $this->hasMany(Topic::class, 'chapter_id');
+        return $this->hasMany(Topic::class, 'chapter_id')->orderBy('sort_order');
     }
-    
+
 }

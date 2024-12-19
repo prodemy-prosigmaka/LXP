@@ -10,14 +10,14 @@
 
 <template>
 	<header class="flex items-center justify-between">
-		<h1 class="text-3xl font-semibold py-8">
-			{{ is_course_exist ? 'Course Detail' : 'Course Creation Form' }}
+		<h1 class="py-8 text-3xl font-semibold">
+			{{ is_course_exist ? 'Course Detail' : 'Create New Course' }}
 		</h1>
 
 		<a
 			:href="$route('admin.courses.index')"
 			class="btn btn-md bg-white shadow">
-			<ChevronLeftIcon class="w-4 h-4" />
+			<ChevronLeftIcon class="h-4 w-4" />
 			Back
 		</a>
 	</header>
