@@ -24,10 +24,9 @@ class PublicCourseController extends Controller
             'chapters.topics',
         ])->findOrFail($id);
 
-        $userId = Auth::id();
-        $student = Student::where('user_id', $userId)->first();
+        $user = Auth::user();
 
-        $isEnrolled = $student && $student->courses->contains('id', $id);
+        $isEnrolled = $user && $user->courses->contains('id', $id);
 
         return view('public.courselistpage.detail', compact('course', 'isEnrolled'));
     }
