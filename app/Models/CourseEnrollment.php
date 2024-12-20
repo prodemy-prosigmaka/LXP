@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CourseStudent
+ * Class CourseEnrollment
  *
  * @property $id
- * @property $student_id
+ * @property $user_id
  * @property $course_id
  * @property $created_at
  * @property $updated_at
  *
  * @property Course $course
- * @property Student $student
+ * @property User $user
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class CourseStudent extends Model
+class CourseEnrollment extends Model
 {
     
     protected $perPage = 20;
@@ -28,7 +28,7 @@ class CourseStudent extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['student_id', 'course_id'];
+    protected $fillable = ['user_id', 'course_id'];
 
 
     /**
@@ -42,9 +42,9 @@ class CourseStudent extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function student()
+    public function user()
     {
-        return $this->belongsTo(\App\Models\Student::class, 'student_id', 'id');
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
     
 }

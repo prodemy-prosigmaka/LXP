@@ -35,7 +35,7 @@
                         <x-table.td>{{ $order }}</x-table.td>
                         <x-table.td>{{ $course->title }}</x-table.td>
                         <x-table.td>{{ $course->instructor->user->name }}</x-table.td>
-                        <x-table.td>{{ $course->students_count }}</x-table.td>
+                        <x-table.td>{{ $course->users_count }}</x-table.td>
                         <x-table.td :sort_order="$order">
                             <a
                                 href="{{ route('admin.courses.edit', $course->id) }}"
