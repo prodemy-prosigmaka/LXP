@@ -27,7 +27,9 @@
             <p class="text-white"><b>Instructor: </b>{{ $course->instructor->user->name }}</p>
 
             @if ($isEnrolled)
-                <button type="submit" class="btn btn-secondary btn-sm w-40 font-bold">Go to class</button>
+                <a href="{{ route('learning.index', $course->id) }}" class="btn btn-secondary btn-sm w-40 font-bold">
+                    Go to class
+                </a>
             @else
                 <form method="POST" action="{{ route('mylearning.join') }}">
                     @csrf
