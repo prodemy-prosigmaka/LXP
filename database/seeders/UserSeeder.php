@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enums\RoleEnum;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Faker\Factory as Faker;
 
 class UserSeeder extends Seeder
@@ -24,21 +23,21 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin Prodemy',
             'email' => 'dummy.admin@prosigmaka.com',
-            'password' => Hash::make('dummypsm'),
+            'password' => 'dummypsm',
         ]);
         $admin->assignRole(RoleEnum::ADMIN);
 
         $student = User::create([
             'name' => 'Student Prodemy',
             'email' => 'dummy.student@prosigmaka.com',
-            'password' => Hash::make('dummypsm'),
+            'password' => 'dummypsm',
         ]);
         $student->assignRole(RoleEnum::STUDENT);
 
         $instructor = User::create([
             'name' => 'Teacher Prodemy',
             'email' => 'dummy.teacher@prosigmaka.com',
-            'password' => Hash::make('dummypsm'),
+            'password' => 'dummypsm',
         ]);
         $instructor->assignRole(RoleEnum::INSTRUCTOR);
 
@@ -49,7 +48,7 @@ class UserSeeder extends Seeder
             $user = User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'password' => Hash::make('dummypsm'),
+                'password' => 'dummypsm',
             ]);
             $user->assignRole(RoleEnum::STUDENT);
         }

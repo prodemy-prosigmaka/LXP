@@ -18,13 +18,12 @@
             </a>
         </x-slot>
 
-
         <x-table.parent class="mt-8">
             <x-slot:thead>
                 <x-table.th class="w-12 min-w-12"> # </x-table.th>
                 <x-table.th> Title </x-table.th>
                 <x-table.th> Instructor </x-table.th>
-                <x-table.th> Students </x-table.th>
+                <x-table.th> Enrolled </x-table.th>
                 <x-table.th class="sticky right-0 w-36 min-w-36"> Action </x-table.th>
             </x-slot>
 

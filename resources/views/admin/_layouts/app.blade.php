@@ -4,14 +4,16 @@
 	<div class="min-h-screen bg-gray-100">
 		@include('admin._layouts.navigation')
 
-		<div class="md:ml-56 pt-16">
+		<div class="pt-16 md:ml-56">
 
 			<!-- Page Heading -->
 			@hasSection('header')
-				<header class="max-w-7xl mx-auto py-8 sm:px-6 lg:px-8">
-					<h2 class="font-semibold text-3xl text-gray-800 leading-tight">
+				<header class="mx-auto flex max-w-7xl items-center justify-between py-8 sm:px-6 lg:px-8">
+					<h2 class="text-3xl font-semibold leading-tight text-gray-800">
 						@yield('header')
 					</h2>
+
+					@yield('header-action')
 				</header>
 			@endif
 

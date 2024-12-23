@@ -18,10 +18,10 @@ class CourseController extends Controller
      */
     public function index(Request $request): View
     {
-        $courses = Course::with('instructor.user')->withCount('users')->paginate();
+        $courses    = Course::with('instructor.user')->withCount('users')->paginate();
+        $i          = ($request->input('page', 1) - 1) * $courses->perPage();
 
-        return view('admin.course.index', compact('courses'))
-            ->with('i', ($request->input('page', 1) - 1) * $courses->perPage());
+        return view('admin.course.index', compact('courses', 'i'));
     }
 
     /**
