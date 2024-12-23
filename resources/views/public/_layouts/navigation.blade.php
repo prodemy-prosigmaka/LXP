@@ -1,7 +1,13 @@
 <header class="sticky top-0 z-20 navbar flex justify-between bg-base-100 shadow-md px-4 md:px-20">
-    <a href="{{ route('landing.index') }}">
-        <img src="{{ asset('assets/logo-prodemy.png') }}" alt="logo" class="w-28">
-    </a>
+    <div class="flex gap-4">
+        <a href="{{ route('landing.index') }}">
+            <img src="{{ asset('assets/logo-prodemy.png') }}" alt="logo" class="w-28">
+        </a>
+
+        <a href="{{ route('courselist.index') }}"
+            class="btn btn-outline btn-sm border-secondary text-secondary hover:bg-secondary hover:text-white hover:border-secondary">Courses</a>
+    </div>
+
     <nav class="flex-none gap-4">
         @if (Auth::check())
             <a href="{{ route('mylearning') }}" class="self-center link link-secondary no-underline">My Learning</a>
