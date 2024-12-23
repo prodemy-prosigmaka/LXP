@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RoleEnum;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -19,9 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn (Request $request) => route('login'));
         $middleware->redirectUsersTo(function (Request $request)
         {
-            $redirect_target = Auth::user()->instructor()->count()
-                                ? route('admin.dashboard')
-                                : route('mylearning');
+            $redirect_target = Auth::user()->hasAnyRole(RoleEnum::ADMIN, RoleEnum::INSTRUCTOR)
+                                    ? route('admin.dashboard')
+                                    : route('mylearning');
 
             return $redirect_target;
         });
@@ -31,6 +32,12 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
         ]);
 
+        // dari laravel-permission
+        $middleware->alias([
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
