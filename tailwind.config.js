@@ -60,7 +60,6 @@ export default {
                     "secondary-content": "#ffffff",
                     "neutral-content": "#000000",
                     "--rounded-btn": "2rem",
-                    "--border-btn": "0px", 
                     "--rounded-input": "2rem",
                 },
             }
