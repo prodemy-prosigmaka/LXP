@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Models\CourseStudent;
-use App\Models\Student;
+use App\Models\CourseEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -14,9 +13,8 @@ class MyLearningController extends Controller
 {
     public function index(): View
     {
-        $userId = Auth::id();
-        $student = Student::where('user_id', $userId)->first();
-        $mycourses = $student->courses;
+        $user = Auth::user();
+        $mycourses = $user->courses;
         return view('public.mylearningpage.index', compact('mycourses'));
     }
 
@@ -27,17 +25,15 @@ class MyLearningController extends Controller
         ]);
 
         $courseId = (int) $validatedData['course_id'];
-        $userId = Auth::id();
-        $student = Student::where('user_id', $userId)->first();
 
-        if (!$student) {
-            return Redirect::back()->withErrors(['errorStudentNotFound' => 'Student Not Found']);
+        if (!Auth::check()) {
+            return Redirect::back()->withErrors(['errorUserNotFound' => 'You are not logged in!']);
         }
 
-        $studentId = $student->id;
+        $userId = Auth::id();
 
-        // Check if the student is already enrolled in the course
-        $existingEnrollment = CourseStudent::where('student_id', $studentId)
+        // Check if the user is already enrolled in the course
+        $existingEnrollment = CourseEnrollment::where('user_id', $userId)
             ->where('course_id', $validatedData['course_id'])
             ->first();
 
@@ -45,8 +41,8 @@ class MyLearningController extends Controller
             return Redirect::back()->withErrors(['errorEnrollment' => 'You have already enrolled in this class']);
         }
 
-        CourseStudent::create([
-            'student_id' => $studentId,
+        CourseEnrollment::create([
+            'user_id' => $userId,
             'course_id'  => $courseId,
         ]);
 

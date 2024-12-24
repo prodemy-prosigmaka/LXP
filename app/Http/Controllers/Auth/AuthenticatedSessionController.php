@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
@@ -28,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $redirect_route = Auth::user()->instructor()->count()
+        $redirect_route = Auth::user()->hasAnyRole(RoleEnum::ADMIN, RoleEnum::INSTRUCTOR)
                             ? 'admin.dashboard'
                             : 'mylearning';
 

@@ -8,7 +8,7 @@
             @include('public.learningpage.sidebar')
         </div>
 
-        <main class="flex-1">
+        <main class="flex flex-1 flex-col md:h-[calc(100vh-100px)]">
             <div class="mb-4 flex gap-2 justify-end">
                 @if ($prevTopic)
                     <a href="{{ route('learning.show.' . $prevTopic->lesson->type, ['courseId' => $course->id, 'topicId' => $prevTopic->id]) }}"
